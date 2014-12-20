@@ -6,6 +6,12 @@ from time import sleep
 from array import array
 import RPi.GPIO as GPIO
 
+clap = 0
+wait = 2
+flag = 0
+pin = 24
+exitFlag = False	
+
 def toggleLight(c):
 	GPIO.output(c,True)
 	sleep(1)
@@ -15,7 +21,9 @@ def toggleLight(c):
 def waitForClaps(threadName):
 	global clap
 	global flag
+	global wait
 	global exitFlag
+	global pin
 	print "Waiting for more claps"
 	sleep(wait)
 	if clap == 2:
@@ -30,17 +38,16 @@ def waitForClaps(threadName):
 	flag = 0
 
 def main():
+	global clap
+	global flag
+	global pin
+
 	chunk = 1024
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 1
 	RATE = 44100
 	threshold = 3000
 	max_value = 0
-	clap=0
-	wait=2
-	flag = 0
-	pin = 24
-	exitFlag = False
 	p = pyaudio.PyAudio()
 	stream = p.open(format=FORMAT,
 					channels=CHANNELS, 
