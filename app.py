@@ -15,10 +15,15 @@ import _thread as thread
 from array import array
 from time import sleep
 import pyaudio
-# import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+    # Uncomment all the Controller code if you recevice this message when you run the code
+    print("Raspberry Pi GPIO module detected.")
+except(ModuleNotFoundError):
+    pass
 
-FORMAT = pyaudio.paInt16	# Signed 16-bit Integer Format
-CHANNELS = 1				# 1 = Mono (Supported), 2 = Stereo (Stereo is not supported yet)
+FORMAT = pyaudio.paInt16  # Signed 16-bit Integer Format
+CHANNELS = 1				# 1 = Mono Channel
 RATE = 44100				# Number of sample collected in 1 second
 CHUNK_SIZE = 1024			# Number of frames in the buffer
 LISTENER_WAIT = 2 			# Adjsut wait time for listener
@@ -46,6 +51,7 @@ LISTENER_THRESHOLD = 10000  # Adjust threshold amplitude
 # 	def cleanup():
 # 		GPIO.cleanup()
 
+
 class Listener():
     def __init__(self):
         self.threshold = LISTENER_THRESHOLD
@@ -59,7 +65,7 @@ class Listener():
         self.claps = 0
         self.exit = False
         self.lock = thread.allocate_lock()
-		# self.rpi = Controller(pin=24)
+        # self.rpi = Controller(pin=24)
 
     def listenClaps(self, threadName):
         with self.lock:
@@ -67,10 +73,10 @@ class Listener():
             sleep(LISTENER_WAIT)
             if self.claps == 2:
                 print("Clapped 2 times.")
-				# self.rpi.flashLight()
+                # self.rpi.flashLight()
             elif self.claps == 3:
                 print("Clapped 3 times.")
-				# self.rpi.toggleLight(pin=13)
+                # self.rpi.toggleLight(pin=13)
             elif self.claps == 4:
                 self.exit = True
             self.claps = 0
