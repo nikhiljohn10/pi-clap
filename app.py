@@ -22,12 +22,12 @@ try:
 except(ModuleNotFoundError):
     pass
 
-FORMAT = pyaudio.paInt16  # Signed 16-bit Integer Format
-CHANNELS = 1				# 1 = Mono Channel
-RATE = 44100				# Number of sample collected in 1 second
-CHUNK_SIZE = 1024			# Number of frames in the buffer
-LISTENER_WAIT = 2 			# Adjsut wait time for listener
-LISTENER_THRESHOLD = 10000  # Adjust threshold amplitude
+FORMAT = pyaudio.paInt16		# Signed 16-bit Integer Format
+CHANNELS = 1					# 1 = Mono Channel
+RATE = 44100					# Number of sample collected in 1 second
+CHUNK_SIZE = 1024				# Number of frames in the buffer
+LISTENER_WAIT = 2 				# Adjsut wait time for listener
+LISTENER_THRESHOLD = 10000		# Adjust threshold amplitude
 
 
 # class Controller():
