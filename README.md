@@ -1,7 +1,7 @@
 pi-clap
 =======
 
-Clap detection and singnaling program for Raspberry Pi
+Clap detection and signalling program for Raspberry Pi
 
 ### H/w Requirements
 
@@ -12,10 +12,10 @@ Clap detection and singnaling program for Raspberry Pi
 
 ### Dependencies
 
-**Python**
+**Python 3**
 
  * RPi.GPIO
- * pyaudio
+ * pyaudio ( PortAudio is needed )
 
 **Other**
 
@@ -31,6 +31,10 @@ Clap detection and singnaling program for Raspberry Pi
 5. Run 'sudo python main.py' command in terminal.
 
 ( Try 2 claps to activate the output line for 1 sec. Note: Use 4 claps to exit from the system )
+
+### Update
+
+Python 3 compatible code is updated using classes and thread lock
 
 ### References
 
