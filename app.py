@@ -29,27 +29,28 @@ CHUNK_SIZE = 1024			# Number of frames in the buffer
 LISTENER_WAIT = 2 			# Adjsut wait time for listener
 LISTENER_THRESHOLD = 10000  # Adjust threshold amplitude
 
+
 # class Controller():
 #
-# 	def __init__(self, pin):
-# 		self.pin = pin
+#     def __init__(self, pin):
+#         self.pin = pin
 #         GPIO.setmode(GPIO.BCM)
 #         GPIO.setup(self.pin, GPIO.OUT)
 #
-# 	def flashLight(pin=None):
-# 	 	gpio_pin = pin if pin != None else self.pin
-# 		GPIO.output(gpio_pin,True)
-# 		sleep(1)
-# 		GPIO.output(gpio_pin,False)
-# 		print("Light flashed")
+#     def flashLight(pin=None):
+#         gpio_pin = pin if pin != None else self.pin
+#         GPIO.output(gpio_pin, True)
+#         sleep(1)
+#         GPIO.output(gpio_pin, False)
+#         print("Light flashed")
 #
-# 	def toggleLight(pin=None):
-# 	 	gpio_pin = pin if pin != None else self.pin
-# 		GPIO.output(gpio_pin, not GPIO.input(gpio_pin))
-# 		print("Light toggled")
+#     def toggleLight(pin=None):
+#         gpio_pin = pin if pin != None else self.pin
+#         GPIO.output(gpio_pin, not GPIO.input(gpio_pin))
+#         print("Light toggled")
 #
-# 	def cleanup():
-# 		GPIO.cleanup()
+#     def cleanup():
+#         GPIO.cleanup()
 
 
 class Listener():
