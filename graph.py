@@ -1,64 +1,86 @@
+import wave
+import shutil
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import EngFormatter
-import numpy as np
-import wave
-import zipfile
 
 
-NFFT = 1024  # the length of the windowing segments
-COUNT = 23
-output = []
+class Plotter():
 
+    def __init__(self):
+        fig, (ax1, ax2) = plt.subplots(nrows=2, figsize=(8, 6))
+        self.figure = fig
+        self.waveplot = ax1
+        self.specplot = ax2
 
-def plot(id, signal, time, Fs):
-    max_val = np.amax(np.absolute(signal))
+    def __del__(self):
+        plt.close(self.figure)
 
-    fig, (ax1, ax2) = plt.subplots(nrows=2, figsize=(8, 6))
-    plt.subplots_adjust(hspace=0.25)
+    def processFile(self, file):
+        data = file.readframes(-1)
+        self.rate = file.getframerate()
+        self.signal = np.frombuffer(data, dtype=np.int16)
+        self.max_val = np.amax(np.absolute(self.signal))
+        self.time = np.linspace(0,
+                                float(len(self.signal)) / self.rate,
+                                num=len(self.signal))
 
-    ax1.plot(time, signal)
-    ax1.set_xlabel('Time [second]')
-    ax1.set_yticks([-max_val, -max_val / 2, 0, max_val / 2, max_val])
-    ax1.set_yticklabels(['-1.0', '-0.5', '0', '0.5', '1.0'])
-    ax1.set_ylabel('Amplitude')
+    def setupPlot(self):
+        plt.subplots_adjust(hspace=0.25)
+        self.waveplot.set_xlabel('Time [second]')
+        self.waveplot.set_ylabel('Amplitude')
+        self.waveplot.set_yticks([-self.max_val,
+                                  -self.max_val / 2,
+                                  0,
+                                  self.max_val / 2,
+                                  self.max_val])
+        self.waveplot.set_yticklabels(['-1.0', '-0.5', '0', '0.5', '1.0'])
+        self.specplot.yaxis.set_major_formatter(EngFormatter(unit='Hz'))
+        self.specplot.set_xlabel('Time [second]')
+        self.specplot.set_ylabel('Frequency [Hz]')
 
-    freqFormatter = EngFormatter(unit='Hz')
-    ax2.yaxis.set_major_formatter(freqFormatter)
-    Pxx, freqs, bins, im = ax2.specgram(signal, NFFT=NFFT, Fs=Fs)
-    ax2.set_xlabel('Time [second]')
-    ax2.set_ylabel('Frequency [Hz]')
+    def writeData(self, path, data):
+        Pxx, freqs, bins, im = data
+        shutil.os.mkdir(path)
+        np.savetxt(path + '/periodogram.dat', Pxx)
+        np.savetxt(path + '/freqs.dat', freqs)
+        np.savetxt(path + '/time_bins.dat', bins)
+        self.figure.savefig(path + '/plot.jpg', format='jpg', dpi=150)
 
-    # plt.show()
-    fig.savefig('output/{:02d}.png'.format(id))
-    plt.close(fig)
-
-    return (Pxx, freqs, bins, im)
-
-
-def process(id, file):
-    signal = file.readframes(-1)
-    signal = np.frombuffer(signal, dtype=np.int16)
-
-    Fs = file.getframerate()
-    t = np.linspace(0, float(len(signal)) / Fs, num=len(signal))
-    output.append(plot(id, signal, t, Fs))
+    def print(self, id, file):
+        self.processFile(file)
+        self.setupPlot()
+        self.waveplot.plot(self.time, self.signal)
+        spectrum = self.specplot.specgram(self.signal,
+                                          NFFT=1024,
+                                          Fs=self.rate)
+        # plt.show()
+        self.writeData('./output/{:02d}'.format(id), spectrum)
 
 
 def main():
-    with zipfile.ZipFile('samples.zip', 'r') as zipper:
-        zipper.extractall('.')
+    fs_error = False
     try:
-        for id in range(0, COUNT + 1):
-            filename = 'samples/{:02d}.wav'.format(id)
-
-            with wave.open(filename, "r") as file:
-                if file.getnchannels() == 2:
-                    print(filename, "is not a mono audio file")
-                    continue
-                print(filename, "is opened and being processed")
-                process(id, file)
-    except(KeyboardInterrupt):
-        print("\rExiting")
+        shutil.rmtree('./output', ignore_errors=True)
+        shutil.os.mkdir('./output')
+        shutil.unpack_archive('samples.zip', '.')
+    except OSError as e:
+        print("Error: %s : %s" % (dir_path, e.strerror))
+        fs_error = True
+    if not fs_error:
+        try:
+            for id in range(0, 24):
+                filename = 'samples/{:02d}.wav'.format(id)
+                with wave.open(filename, "r") as file:
+                    if file.getnchannels() == 2:
+                        print(filename, "is not a mono audio file")
+                        continue
+                    print(filename, "is opened and being processed")
+                    plot = Plotter()
+                    plot.print(id, file)
+        except(KeyboardInterrupt):
+            print("\rExiting")
+        shutil.rmtree('./samples', ignore_errors=True)
 
 
 if __name__ == '__main__':
