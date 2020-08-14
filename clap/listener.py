@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+
 from time import sleep
 
 import _thread as thread
 import pyaudio
-from .processor import SignalProcessor
+
 from .controller import Controller
+from .processor import SignalProcessor
 
 FORMAT = pyaudio.paInt16		# Signed 16-bit Integer Format
 CHANNELS = 1					# 1 = Mono Channel
@@ -25,7 +27,7 @@ class Listener():
         self.exit = False
         self.lock = thread.allocate_lock()
         self.processor = SignalProcessor()
-        # self.rpi = Controller(pin=24)
+        self.rpi = Controller(pin=24)
 
     def clapWait(self, clap):
         sleep(0.5)
@@ -34,19 +36,18 @@ class Listener():
 
     def listenClaps(self, threadName):
         with self.lock:
-            print("Listener started")
+            print("Waiting for claps...")
             self.clapWait(self.claps)
-            print(self.claps)
             if self.claps == 2:
-                print("Clapped 2 times.")
-                # self.rpi.flashLight()
+                print("Flashed light")
+                self.rpi.flashLight()
             elif self.claps == 3:
-                print("Clapped 3 times.")
-                # self.rpi.toggleLight(pin=13)
+                print("Toggled light")
+                self.rpi.toggleLight(pin=13)
             elif self.claps == 4:
                 self.exit = True
+            print("You clapped", self.claps, "times.\n")
             self.claps = 0
-            print("Listener stopped")
 
     def start(self):
         try:
@@ -67,4 +68,4 @@ class Listener():
         self.stream.stop_stream()
         self.stream.close()
         self.input.terminate()
-        # self.rpi.cleanup()
+        self.rpi.cleanup()

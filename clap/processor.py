@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 from array import array
 
 THRESHOLD = 10000               # Adjust threshold amplitude
