@@ -9,8 +9,11 @@ output = []
 
 
 def plot(id, signal, time, Fs):
-    max_val = np.amax(signal)
-    fig, (ax1, ax2) = plt.subplots(nrows=2, figsize=(10, 10))
+    max_val = np.amax(np.absolute(signal))
+
+    fig, (ax1, ax2) = plt.subplots(nrows=2, figsize=(8, 6))
+    plt.subplots_adjust(hspace=0.25)
+
     ax1.plot(time, signal)
     ax1.set_xlabel('Time [second]')
     ax1.set_yticks([-max_val, -max_val / 2, 0, max_val / 2, max_val])
