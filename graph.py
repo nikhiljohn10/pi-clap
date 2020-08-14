@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import EngFormatter
 import numpy as np
 import wave
+import zipfile
+
 
 NFFT = 1024  # the length of the windowing segments
 COUNT = 23
@@ -43,6 +45,8 @@ def process(id, file):
 
 
 def main():
+    with zipfile.ZipFile('samples.zip', 'r') as zipper:
+        zipper.extractall('.')
     try:
         for id in range(0, COUNT + 1):
             filename = 'samples/{:02d}.wav'.format(id)
