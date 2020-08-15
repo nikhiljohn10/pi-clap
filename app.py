@@ -9,7 +9,7 @@
 
 Repo: https://github.com/nikhiljohn10/pi-clap
 Author: Nikhil John
-
+License: MIT
 """
 
 from clap.listener import Listener
