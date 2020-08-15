@@ -1,12 +1,31 @@
 #!/usr/bin/python3
+"""
+
+    ###################
+    ##               ##
+    ##    Pi-Clap    ##
+    ##               ##
+    ###################
+
+Repo: https://github.com/nikhiljohn10/pi-clap
+Author: Nikhil John
+License: MIT
+"""
 
 from time import sleep
 
 import _thread as thread
 import pyaudio
 
-from .controller import Controller
 from .processor import SignalProcessor
+
+try:
+    import RPi.GPIO
+    from .controller import Controller
+except(ModuleNotFoundError):
+    from .controller import DummyController as Controller
+    print("Raspberry Pi GPIO module not installed")
+
 
 FORMAT = pyaudio.paInt16		# Signed 16-bit Integer Format
 CHANNELS = 1					# 1 = Mono Channel
@@ -39,10 +58,8 @@ class Listener():
             print("Waiting for claps...")
             self.clapWait(self.claps)
             if self.claps == 2:
-                print("Flashed light")
                 self.rpi.flashLight()
             elif self.claps == 3:
-                print("Toggled light")
                 self.rpi.toggleLight(pin=13)
             elif self.claps == 4:
                 self.exit = True
@@ -59,7 +76,7 @@ class Listener():
                 if self.claps == 1 and not self.lock.locked():
                     thread.start_new_thread(
                         self.listenClaps, ("ListenClaps",))
-        except (KeyboardInterrupt, SystemExit):
+        except(KeyboardInterrupt, SystemExit):
             pass
         self.stop()
 

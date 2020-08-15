@@ -1,34 +1,57 @@
 #!/usr/bin/python3
-__ENABLED__ = True
+"""
+
+    ###################
+    ##               ##
+    ##    Pi-Clap    ##
+    ##               ##
+    ###################
+
+Repo: https://github.com/nikhiljohn10/pi-clap
+Author: Nikhil John
+License: MIT
+"""
+
 try:
     import RPi.GPIO as GPIO
 except(ModuleNotFoundError):
-    __ENABLED__ = False
-    print("Raspberry Pi GPIO module not installed")
+    pass
 
 
 class Controller():
 
     def __init__(self, pin=24):
-        if __ENABLED__:
-            self.pin = pin
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setup(self.pin, GPIO.OUT)
+        self.pin = pin
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.pin, GPIO.OUT)
 
     def flashLight(self, pin=None):
-        if __ENABLED__:
-            gpio_pin = pin if pin != None else self.pin
-            GPIO.output(gpio_pin, True)
-            sleep(1)
-            GPIO.output(gpio_pin, False)
-            print("Light flashed")
+        gpio_pin = pin if pin != None else self.pin
+        GPIO.output(gpio_pin, True)
+        sleep(1)
+        GPIO.output(gpio_pin, False)
+        print("Light flashed")
 
     def toggleLight(self, pin=None):
-        if __ENABLED__:
-            gpio_pin = pin if pin != None else self.pin
-            GPIO.output(gpio_pin, not GPIO.input(gpio_pin))
-            print("Light toggled")
+        gpio_pin = pin if pin != None else self.pin
+        GPIO.output(gpio_pin, not GPIO.input(gpio_pin))
+        print("Light toggled")
 
     def cleanup(self):
-        if __ENABLED__:
-            GPIO.cleanup()
+        GPIO.cleanup()
+
+
+# This is only used when RPi module is not found in your system
+class DummyController():
+
+    def __init__(self, pin=24):
+        pass
+
+    def flashLight(self, pin=None):
+        print("Light flashed")
+
+    def toggleLight(self, pin=None):
+        print("Light toggled")
+
+    def cleanup(self):
+        pass
