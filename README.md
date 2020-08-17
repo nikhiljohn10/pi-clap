@@ -29,8 +29,7 @@ Clap detection and signalling program for Raspberry Pi
 2. [Install Raspbian OS in RPi](http://www.raspberrypi.org/documentation/installation/installing-images/)
 3. Configure OS after OS bootup [6] `sudo raspi-config`
 4. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
-4. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
-5. Install PyAudio `pip3 install pyaudio munch`
+5. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
 6. Connect the output line to BCM #24 Pin on RPi.
 
 ( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )
@@ -41,7 +40,6 @@ Clap detection and signalling program for Raspberry Pi
 # Debian based OS like Ubuntu
 
 sudo apt-get install -y python3-pip portaudio19-dev
-pip3 install pyaudio munch
 
 ```
 
@@ -49,7 +47,7 @@ pip3 install pyaudio munch
 # Fedora
 
 sudo dnf install -y python3-pip portaudio-devel redhat-rpm-config
-pip3 install --user pyaudio munch
+pip3 install --user pyaudio
 
 ```
 
@@ -61,7 +59,7 @@ rpm -Uvh https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm # CentOS 6
 
 sudo yum install -y python37-pip portaudio portaudio-devel
-pip3 install pyaudio munch
+pip3 install pyaudio
 ```
 
 ```
@@ -82,9 +80,19 @@ pip3 install pi-clap
 # Example code for using the package
 
 from piclap.listener import Listener
+from piclap.settings import Settings
 
-listener = Listener()
-listener.start()
+def main():
+    config = Settings()             # Optional
+    config.chunk_size = 512         # Reduce as power of 2 if pyaudio overflow
+    config.interval = 1             # Adjust interval between claps
+    config.customPin = 13           # Custom config variable
+    listener = Listener(config)     # 'config' argument is optional
+    listener.start()
+
+if __name__ == '__main__':
+    main()
+
 
 ```
 
