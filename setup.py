@@ -22,7 +22,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="pi-clap",
-    version="1.0",
+    version="1.0.1",
     author="Nikhil John",
     author_email="ceo@jwala.diamonds",
     description="A clap detection and signalling package created for Raspberry Pi",
@@ -41,5 +41,6 @@ setup(
     python_requires='>=3.6',
     install_requires=[
         "pyaudio>=0.2.11",
+        "munch>=2.5.0",
     ],
 )
