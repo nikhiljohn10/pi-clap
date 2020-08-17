@@ -13,11 +13,11 @@ License: MIT
 """
 
 from time import sleep
-
 import _thread as thread
 import pyaudio
 
-from .processor import SignalProcessor
+from piclap.settings import Settings
+from piclap.processor import SignalProcessor
 
 try:
     import RPi.GPIO
@@ -26,30 +26,24 @@ except(ModuleNotFoundError):
     from .controller import DummyController as Controller
     print("Raspberry Pi GPIO module not installed")
 
-
-FORMAT = pyaudio.paInt16		# Signed 16-bit Integer Format
-CHANNELS = 1					# 1 = Mono Channel
-RATE = 44100					# Number of sample collected in 1 second
-CHUNK_SIZE = 1024				# Number of frames in the buffer
-
-
 class Listener():
-    def __init__(self):
+    def __init__(self, config=Settings()):
+        self.config = config
         self.input = pyaudio.PyAudio()
-        self.stream = self.input.open(format=FORMAT,
-                                      channels=CHANNELS,
-                                      rate=RATE,
+        self.stream = self.input.open(format=pyaudio.paInt16,
+                                      channels=self.config.channels,
+                                      rate=self.config.rate,
                                       input=True,
                                       output=True,
-                                      frames_per_buffer=CHUNK_SIZE)
+                                      frames_per_buffer=self.config.chunk_size)
         self.claps = 0
         self.exit = False
         self.lock = thread.allocate_lock()
-        self.processor = SignalProcessor()
-        self.rpi = Controller(pin=24)
+        self.processor = SignalProcessor(method=self.config.method)
+        self.rpi = Controller(pin=self.config.pin)
 
     def clapWait(self, clap):
-        sleep(0.5)
+        sleep(self.config.interval)
         if self.claps > clap:
             self.clapWait(self.claps)
 
@@ -60,7 +54,7 @@ class Listener():
             if self.claps == 2:
                 self.rpi.flashLight()
             elif self.claps == 3:
-                self.rpi.toggleLight(pin=13)
+                self.rpi.toggleLight(pin=self.config.customPin)
             elif self.claps == 4:
                 self.exit = True
             print("You clapped", self.claps, "times.\n")
@@ -70,7 +64,7 @@ class Listener():
         try:
             print("Clap detection started")
             while not self.exit:
-                data = self.stream.read(CHUNK_SIZE)
+                data = self.stream.read(self.config.chunk_size)
                 if self.processor.findClap(data):
                     self.claps += 1
                 if self.claps == 1 and not self.lock.locked():
