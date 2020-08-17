@@ -16,34 +16,32 @@ Clap detection and signalling program for Raspberry Pi
 
  * RPi.GPIO
  * pyaudio ( PortAudio is needed )
+ * [munch](https://github.com/Infinidat/munch)
 
 **Other**
 
  * Rasbian OS [3]
  * Audio Driver [1],[2],[3]
 
-### Setting up
+### Setting up Raspberry Pi
 
 1. [Download Raspbian OS](http://www.raspberrypi.org/downloads/)
 2. [Install Raspbian OS in RPi](http://www.raspberrypi.org/documentation/installation/installing-images/)
 3. Configure OS after OS bootup [6] `sudo raspi-config`
 4. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
 4. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
-5. Install PyAudio `pip3 install pyaudio`
+5. Install PyAudio `pip3 install pyaudio munch`
 6. Connect the output line to BCM #24 Pin on RPi.
-7. Run `python3 app.py` command in terminal.
 
 ( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )
 
-### Setting up for rest of the operating systems
-
-#### Installing dependencies
+### Installing dependencies
 
 ```
 # Debian based OS like Ubuntu
 
 sudo apt-get install -y python3-pip portaudio19-dev
-pip3 install pyaudio
+pip3 install pyaudio munch
 
 ```
 
@@ -51,7 +49,7 @@ pip3 install pyaudio
 # Fedora
 
 sudo dnf install -y python3-pip portaudio-devel redhat-rpm-config
-pip3 install --user pyaudio
+pip3 install --user pyaudio munch
 
 ```
 
@@ -63,24 +61,43 @@ rpm -Uvh https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm # CentOS 6
 
 sudo yum install -y python37-pip portaudio portaudio-devel
-pip3 install pyaudio
+pip3 install pyaudio munch
 ```
 
 ```
 # MacOS
 
 brew install portaudio
-pip3 install pyaudio || pip3 install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
+pip3 install pyaudio munch || pip3 install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio munch
 ```
 
-#### Following code is for running pi-clap:
+### Using Pip package
+
+```
+# Using the following command in terminal
+pip3 install pi-clap
+```
+
+```
+# Example code for using the package
+
+from piclap.listener import Listener
+
+listener = Listener()
+listener.start()
+
+```
+
+### Using Git Clone
 ```
 git clone https://github.com/nikhiljohn10/pi-clap
 cd pi-clap
-python3 app.py
+python3 tests/app.py
 ```
 
-### License - [MIT](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
+### License
+
+[MIT](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
 
 ### References
 

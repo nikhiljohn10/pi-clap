@@ -14,7 +14,6 @@ License: MIT
 
 from array import array
 
-THRESHOLD = 10000               # Adjust threshold amplitude
 DETECTION_METHODS = [           # Method list for clap detection
     'threshold',
     'filter',
@@ -24,8 +23,9 @@ DETECTION_METHODS = [           # Method list for clap detection
 
 
 class SignalProcessor():
-    def __init__(self, method='threshold'):
-        self.method_id = DETECTION_METHODS.index(method)
+    def __init__(self, method):
+        self.method_id = DETECTION_METHODS.index(method.name)
+        self.method = method
 
     def findClap(self, data):
         if self.method_id == 1:
@@ -50,4 +50,4 @@ class SignalProcessor():
         return False
 
     def useThreshold(self, data):
-        return (True if max(array('h', data)) > THRESHOLD else False)
+        return (True if max(array('h', data)) > self.method.value else False)
