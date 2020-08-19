@@ -1,11 +1,11 @@
 pi-clap
 =======
 
-![Python package](https://github.com/nikhiljohn10/pi-clap/workflows/Python%20package/badge.svg?branch=master)
+[![Python package](https://github.com/nikhiljohn10/pi-clap/workflows/Python%20package/badge.svg?branch=master)](https://pypi.python.org/pypi/pi-clap/)
 [![Latest Version](https://img.shields.io/pypi/v/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![Dependencies](https://img.shields.io/badge/deps-portaudio%2C%20pyaudio%2C%20munch-informational)](https://pypi.python.org/pypi/pi-clap/)
-![Code Size](https://img.shields.io/github/languages/code-size/nikhiljohn10/pi-clap)
+[![Code Size](https://img.shields.io/github/languages/code-size/nikhiljohn10/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![Downloads](https://img.shields.io/pypi/dm/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![License](https://img.shields.io/pypi/l/pi-clap)](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
 
@@ -31,6 +31,7 @@ Clap detection and signalling program for Raspberry Pi
  * Rasbian OS [3]
  * Audio Driver [1],[2],[3]
 
+
 ### Setting up Raspberry Pi
 
 1. [Download Raspbian OS](http://www.raspberrypi.org/downloads/)
@@ -38,11 +39,12 @@ Clap detection and signalling program for Raspberry Pi
 3. Configure OS after OS bootup [6] `sudo raspi-config`
 4. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
 5. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
-6. Connect the output line to BCM #24 Pin on RPi.
+6. Install pi-clap pip module `pip3 install pi-clap`
+7. Connect the output line to BCM #24 Pin on RPi.
 
 ( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )
 
-### Installing dependencies
+### Installing dependencies for other operating systems
 
 ```
 # Debian based OS like Ubuntu
@@ -77,12 +79,7 @@ brew install portaudio
 pip3 install pyaudio munch || pip3 install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio munch
 ```
 
-### Using Pip package
-
-```
-# Using the following command in terminal
-pip3 install pi-clap
-```
+### Example code
 
 ```
 # Example code for using the package
@@ -101,7 +98,13 @@ def main():
 if __name__ == '__main__':
     main()
 
+```
 
+### Using Pip package
+
+```
+# Using the following command in terminal
+pip3 install pi-clap
 ```
 
 ### Using Git Clone
