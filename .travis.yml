@@ -1,0 +1,11 @@
+language: python
+python:
+  - '3.8'
+  - '3.7'
+  - '3.6'
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y python3-pip portaudio19-dev
+  - sudo pip3 install pyaudio munch
+script:
+  - python3 ./tests/test_settings.py
