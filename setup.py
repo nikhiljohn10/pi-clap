@@ -22,7 +22,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="pi-clap",
-    version="1.0.1",
+    version="1.1",
     author="Nikhil John",
     author_email="ceo@jwala.diamonds",
     description="A clap detection and signalling package created for Raspberry Pi",
