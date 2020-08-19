@@ -11,6 +11,7 @@ Repo: https://github.com/nikhiljohn10/pi-clap
 Author: Nikhil John
 License: MIT
 """
+from time import sleep
 
 try:
     import RPi.GPIO as GPIO
