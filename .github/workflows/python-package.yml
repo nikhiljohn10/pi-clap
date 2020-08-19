@@ -3,11 +3,7 @@
 
 name: Python package
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -25,6 +21,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        sudo apt-get install -y portaudio19-dev
         python -m pip install --upgrade pip
         pip install flake8 pytest pyaudio munch
     - name: Lint with flake8
