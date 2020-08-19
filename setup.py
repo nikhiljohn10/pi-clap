@@ -22,7 +22,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="pi-clap",
-    version="1.1",
+    version="1.1.1",
     author="Nikhil John",
     author_email="ceo@jwala.diamonds",
     description="A clap detection and signalling package created for Raspberry Pi",
@@ -32,9 +32,16 @@ setup(
     packages=find_packages(),
     license="MIT",
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "Intended Audience :: Developers",
         "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Topic :: Software Development",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Utilities",
+        "License :: OSI Approved :: MIT License",
     ],
     platforms="any",
     py_modules=['piclap'],
