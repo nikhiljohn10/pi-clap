@@ -1,5 +1,6 @@
 pi-clap
 =======
+![Python package](https://github.com/nikhiljohn10/pi-clap/workflows/Python%20package/badge.svg?branch=master)
 
 Clap detection and signalling program for Raspberry Pi
 
