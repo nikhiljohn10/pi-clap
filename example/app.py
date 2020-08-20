@@ -14,7 +14,7 @@ License: MIT
 
 import os
 import sys
-sys.path.append(os.path.abspath('.'))
+sys.path.append(os.path.abspath('..'))
 
 from piclap.listener import Listener
 from piclap.settings import Settings

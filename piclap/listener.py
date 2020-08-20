@@ -1,16 +1,4 @@
 #!/usr/bin/python3
-"""
-
-    ###################
-    ##               ##
-    ##    Pi-Clap    ##
-    ##               ##
-    ###################
-
-Repo: https://github.com/nikhiljohn10/pi-clap
-Author: Nikhil John
-License: MIT
-"""
 
 from time import sleep
 import _thread as thread
@@ -25,6 +13,7 @@ try:
 except(ModuleNotFoundError):
     from .controller import DummyController as Controller
     print("Raspberry Pi GPIO module not installed")
+
 
 class Listener():
     def __init__(self, config=Settings()):
