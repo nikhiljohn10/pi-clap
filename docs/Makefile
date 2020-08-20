@@ -23,4 +23,3 @@ github:
 	@make html
 	@cp -a _build/html/. ../docs
 	@touch .nojekyll
-	@mv _static static
