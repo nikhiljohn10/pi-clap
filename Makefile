@@ -37,7 +37,7 @@ test-publish: build
 	twine upload --repository testpypi dist/*
 
 docs:
-	sphinx-apidoc -f -F -e -M -a -H 'pi-clap' -A 'Nikhil John' -V '1.1.x' -R '1.1' -o ./docs ./piclap
+	sphinx-apidoc -f -F -e -M -a -H 'pi-clap' -A 'Nikhil John' -V '1.1.x' -R '1.1' -o ./sphinx ./piclap
 
 run: setup
 	python3 ./example/app.py
