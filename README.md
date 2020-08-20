@@ -36,11 +36,13 @@ Clap detection and signalling program for Raspberry Pi
 
 1. [Download Raspbian OS](http://www.raspberrypi.org/downloads/)
 2. [Install Raspbian OS in RPi](http://www.raspberrypi.org/documentation/installation/installing-images/)
-3. Configure OS after OS bootup [6] `sudo raspi-config`
-4. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
-5. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
-6. Install pi-clap pip module `pip3 install pi-clap`
-7. Connect the output line to BCM #24 Pin on RPi.
+3. Plugin the USB input audio device(Audio Card or Microphone)
+4. Configure OS after OS bootup [6] `sudo raspi-config`
+5. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
+6. Reboot `sudo reboot` (This should enable the audio driver for the device connected)
+7. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
+8. Install pi-clap pip module `pip3 install pi-clap`
+9. Connect the output line to BCM #24 & #13 Pin on RPi.
 
 ( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )
 
