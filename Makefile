@@ -2,11 +2,12 @@ project_name = pi-clap
 .PHONY:
 	setup
 	test
-	clean-pyc
 	clean-build
+	clean
 	build
 	publish
 	test-publish
+	docs
 	run
 
 setup:
@@ -15,17 +16,17 @@ setup:
 test: setup
 	python3 ./tests/test_settings.py
 
-clean-pyc:
-	find . -name '*.pyc' -exec rm --force {} +
-	find . -name '*.pyo' -exec rm --force {} +
-	find . -name '*~' -exec rm --force {} +
-
-clean-build: clean-pyc
+clean-build:
 	rm -rf build/
 	rm -rf dist/
 	rm -rf *.egg-info
 
-build: clean-build test
+clean: clean-build
+	find . -name '*.pyc' -exec rm --force {} +
+	find . -name '*.pyo' -exec rm --force {} +
+	find . -name '*~' -exec rm --force {} +
+
+build: clean test
 	pip3 install twine
 	python3 setup.py sdist bdist_wheel
 
@@ -35,5 +36,8 @@ publish: build
 test-publish: build
 	twine upload --repository testpypi dist/*
 
+docs:
+	sphinx-apidoc -f -F -e -M -a -H 'pi-clap' -A 'Nikhil John' -V '1.1.x' -R '1.1' -o ./sphinx ./piclap
+
 run: setup
-	python3 ./tests/app.py
+	python3 ./example/app.py

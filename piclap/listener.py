@@ -1,17 +1,13 @@
 #!/usr/bin/python3
+"""A pypi demonstration vehicle.
+
+.. module:: pi-clap
+   :platform: All
+   :synopsis: A clap detection python module
+
+.. moduleauthor:: Nikhil John <ceo@jwala.diamonds>
+
 """
-
-    ###################
-    ##               ##
-    ##    Pi-Clap    ##
-    ##               ##
-    ###################
-
-Repo: https://github.com/nikhiljohn10/pi-clap
-Author: Nikhil John
-License: MIT
-"""
-
 from time import sleep
 import _thread as thread
 import pyaudio
@@ -19,16 +15,15 @@ import pyaudio
 from piclap.settings import Settings
 from piclap.processor import SignalProcessor
 
-try:
-    import RPi.GPIO
-    from .controller import Controller
-except(ModuleNotFoundError):
-    from .controller import DummyController as Controller
-    print("Raspberry Pi GPIO module not installed")
 
 class Listener():
-    def __init__(self, config=Settings()):
-        self.config = config
+    '''Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.
+
+    :param config: An object of :class:`piclap.settings.Settings` which is used for configuring the module
+    :type config: class: `piclap.settings.Settings`
+    '''
+    def __init__(self, config=None):
+        self.config = config or Settings()
         self.input = pyaudio.PyAudio()
         self.stream = self.input.open(format=pyaudio.paInt16,
                                       channels=self.config.channels,
@@ -37,10 +32,8 @@ class Listener():
                                       output=True,
                                       frames_per_buffer=self.config.chunk_size)
         self.claps = 0
-        self.exit = False
         self.lock = thread.allocate_lock()
         self.processor = SignalProcessor(method=self.config.method)
-        self.rpi = Controller(pin=self.config.pin)
 
     def clapWait(self, clap):
         sleep(self.config.interval)
@@ -51,19 +44,16 @@ class Listener():
         with self.lock:
             print("Waiting for claps...")
             self.clapWait(self.claps)
-            if self.claps == 2:
-                self.rpi.flashLight()
-            elif self.claps == 3:
-                self.rpi.toggleLight(pin=self.config.customPin)
-            elif self.claps == 4:
-                self.exit = True
+            action = 'on'+str(self.claps)+'Claps'
+            if action in self.config.actions:
+                getattr(self.config, action)()
             print("You clapped", self.claps, "times.\n")
             self.claps = 0
 
     def start(self):
         try:
             print("Clap detection started")
-            while not self.exit:
+            while not self.config.exit:
                 data = self.stream.read(self.config.chunk_size)
                 if self.processor.findClap(data):
                     self.claps += 1
@@ -79,4 +69,3 @@ class Listener():
         self.stream.stop_stream()
         self.stream.close()
         self.input.terminate()
-        self.rpi.cleanup()
