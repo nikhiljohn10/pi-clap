@@ -43,7 +43,7 @@
 
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span> <span class="o">=</span> <span class="n">GPIO</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">gpio</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setPinOut</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">flashLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

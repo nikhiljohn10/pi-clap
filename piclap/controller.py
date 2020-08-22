@@ -9,7 +9,7 @@ try:
 
         def __init__(self):
             self.gpio = GPIO
-            self.gpio.setmode(gpio.BCM)
+            self.gpio.setmode(self.gpio.BCM)
             self.setPinOut(pin=24)
 
         def flashLight(self, pin=None):
