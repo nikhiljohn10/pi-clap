@@ -10,25 +10,33 @@ except(ModuleNotFoundError):
 
 class Controller():
 
-    def __init__(self, pin=24):
-        self.pin = pin
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.OUT)
+    def __init__(self):
+        self.gpio = GPIO
+        self.gpio.setmode(gpio.BCM)
+        self.setPinOut(pin=24)
 
     def flashLight(self, pin=None):
         gpio_pin = pin if pin != None else self.pin
-        GPIO.output(gpio_pin, True)
+        self.gpio.output(gpio_pin, True)
         sleep(1)
-        GPIO.output(gpio_pin, False)
+        self.gpio.output(gpio_pin, False)
         print("Light flashed")
 
     def toggleLight(self, pin=None):
         gpio_pin = pin if pin != None else self.pin
-        GPIO.output(gpio_pin, not GPIO.input(gpio_pin))
+        self.gpio.output(gpio_pin, not self.gpio.input(gpio_pin))
         print("Light toggled")
 
+    def setPinIn(self, pin):
+        self.gpio.setup(pin, self.gpio.IN)
+        self.pin = pin
+
+    def setPinOut(self, pin):
+        self.gpio.setup(pin, self.gpio.OUT)
+        self.pin = pin
+
     def cleanup(self):
-        GPIO.cleanup()
+        self.gpio.cleanup()
 
 
 # This is only used when RPi module is not found in your system
