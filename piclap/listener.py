@@ -1,5 +1,13 @@
 #!/usr/bin/python3
+"""A pypi demonstration vehicle.
 
+.. module:: pi-clap
+   :platform: All
+   :synopsis: A clap detection python module
+
+.. moduleauthor:: Nikhil John <ceo@jwala.diamonds>
+
+"""
 from time import sleep
 import _thread as thread
 import pyaudio
@@ -9,8 +17,13 @@ from piclap.processor import SignalProcessor
 
 
 class Listener():
-    def __init__(self, config=Settings()):
-        self.config = config
+    '''Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.
+
+    :param config: An object of :class:`piclap.settings.Settings` which is used for configuring the module
+    :type config: class: `piclap.settings.Settings`
+    '''
+    def __init__(self, config=None):
+        self.config = config or Settings()
         self.input = pyaudio.PyAudio()
         self.stream = self.input.open(format=pyaudio.paInt16,
                                       channels=self.config.channels,

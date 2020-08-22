@@ -38,47 +38,60 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="k">as</span> <span class="nn">GPIO</span>
+
+    <span class="k">class</span> <span class="nc">Controller</span><span class="p">():</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span> <span class="o">=</span> <span class="n">GPIO</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">gpio</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setPinOut</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">flashLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">gpio_pin</span> <span class="o">=</span> <span class="n">pin</span> <span class="k">if</span> <span class="n">pin</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">pin</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed on pin&quot;</span><span class="p">,</span> <span class="n">gpio_pin</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">toggleLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">gpio_pin</span> <span class="o">=</span> <span class="n">pin</span> <span class="k">if</span> <span class="n">pin</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">pin</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">,</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin&quot;</span><span class="p">,</span> <span class="n">gpio_pin</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">setPinIn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">IN</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pin</span> <span class="o">=</span> <span class="n">pin</span>
+
+        <span class="k">def</span> <span class="nf">setPinOut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pin</span> <span class="o">=</span> <span class="n">pin</span>
+
+        <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
 <span class="k">except</span><span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">):</span>
-    <span class="k">pass</span>
 
+<div class="viewcode-block" id="Controller"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller">[docs]</a>    <span class="k">class</span> <span class="nc">Controller</span><span class="p">():</span>
 
-<div class="viewcode-block" id="Controller"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller">[docs]</a><span class="k">class</span> <span class="nc">Controller</span><span class="p">():</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pin</span> <span class="o">=</span> <span class="n">pin</span>
-        <span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
-        <span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+<div class="viewcode-block" id="Controller.flashLight"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller.flashLight">[docs]</a>        <span class="k">def</span> <span class="nf">flashLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pin</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed on pin&quot;</span><span class="p">,</span> <span class="n">pin</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Controller.flashLight"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller.flashLight">[docs]</a>    <span class="k">def</span> <span class="nf">flashLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">gpio_pin</span> <span class="o">=</span> <span class="n">pin</span> <span class="k">if</span> <span class="n">pin</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">pin</span>
-        <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Controller.toggleLight"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller.toggleLight">[docs]</a>        <span class="k">def</span> <span class="nf">toggleLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pin</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin&quot;</span><span class="p">,</span> <span class="n">pin</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Controller.toggleLight"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller.toggleLight">[docs]</a>    <span class="k">def</span> <span class="nf">toggleLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">gpio_pin</span> <span class="o">=</span> <span class="n">pin</span> <span class="k">if</span> <span class="n">pin</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">pin</span>
-        <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">,</span> <span class="ow">not</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">gpio_pin</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Controller.cleanup"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller.cleanup">[docs]</a>        <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span></div></div>
 
-<div class="viewcode-block" id="Controller.cleanup"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.Controller.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span></div></div>
-
-
-<span class="c1"># This is only used when RPi module is not found in your system</span>
-<div class="viewcode-block" id="DummyController"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.DummyController">[docs]</a><span class="k">class</span> <span class="nc">DummyController</span><span class="p">():</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
-        <span class="k">pass</span>
-
-<div class="viewcode-block" id="DummyController.flashLight"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.DummyController.flashLight">[docs]</a>    <span class="k">def</span> <span class="nf">flashLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed&quot;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="DummyController.toggleLight"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.DummyController.toggleLight">[docs]</a>    <span class="k">def</span> <span class="nf">toggleLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled&quot;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="DummyController.cleanup"><a class="viewcode-back" href="../../piclap.controller.html#piclap.controller.DummyController.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div></div>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raspberry Pi GPIO module not installed&quot;</span><span class="p">)</span>
 </pre></div>
 
           </div>

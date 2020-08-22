@@ -33,7 +33,15 @@
             
   <h1>Source code for piclap.listener</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/python3</span>
+<span class="sd">&quot;&quot;&quot;A pypi demonstration vehicle.</span>
 
+<span class="sd">.. module:: pi-clap</span>
+<span class="sd">   :platform: All</span>
+<span class="sd">   :synopsis: A clap detection python module</span>
+
+<span class="sd">.. moduleauthor:: Nikhil John &lt;ceo@jwala.diamonds&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 <span class="kn">import</span> <span class="nn">_thread</span> <span class="k">as</span> <span class="nn">thread</span>
 <span class="kn">import</span> <span class="nn">pyaudio</span>
@@ -41,17 +49,15 @@
 <span class="kn">from</span> <span class="nn">piclap.settings</span> <span class="kn">import</span> <span class="n">Settings</span>
 <span class="kn">from</span> <span class="nn">piclap.processor</span> <span class="kn">import</span> <span class="n">SignalProcessor</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">RPi.GPIO</span>
-    <span class="kn">from</span> <span class="nn">.controller</span> <span class="kn">import</span> <span class="n">Controller</span>
-<span class="k">except</span><span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">.controller</span> <span class="kn">import</span> <span class="n">DummyController</span> <span class="k">as</span> <span class="n">Controller</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raspberry Pi GPIO module not installed&quot;</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="Listener"><a class="viewcode-back" href="../../piclap.listener.html#piclap.listener.Listener">[docs]</a><span class="k">class</span> <span class="nc">Listener</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">Settings</span><span class="p">()):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+    <span class="sd">&#39;&#39;&#39;Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</span>
+
+<span class="sd">    :param config: An object of :class:`piclap.settings.Settings` which is used for configuring the module</span>
+<span class="sd">    :type config: class: `piclap.settings.Settings`</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">Settings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span><span class="p">,</span>
                                       <span class="n">channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
@@ -60,10 +66,8 @@
                                       <span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                       <span class="n">frames_per_buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exit</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">SignalProcessor</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rpi</span> <span class="o">=</span> <span class="n">Controller</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pin</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Listener.clapWait"><a class="viewcode-back" href="../../piclap.listener.html#piclap.listener.Listener.clapWait">[docs]</a>    <span class="k">def</span> <span class="nf">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clap</span><span class="p">):</span>
         <span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
@@ -74,19 +78,16 @@
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Waiting for claps...&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rpi</span><span class="o">.</span><span class="n">flashLight</span><span class="p">()</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rpi</span><span class="o">.</span><span class="n">toggleLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">customPin</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">exit</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;Claps&#39;</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">action</span><span class="p">)()</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You clapped&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">,</span> <span class="s2">&quot;times.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">=</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="Listener.start"><a class="viewcode-back" href="../../piclap.listener.html#piclap.listener.Listener.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clap detection started&quot;</span><span class="p">)</span>
-            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit</span><span class="p">:</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">exit</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">findClap</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -101,8 +102,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Exiting&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stop_stream</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rpi</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span></div></div>
 </pre></div>
 
           </div>

@@ -37,6 +37,7 @@
 
 <div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../piclap.settings.html#piclap.settings.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">():</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">44100</span>                   <span class="c1"># Number of sample collected in 1sec</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="mi">1</span>                   <span class="c1"># 1 = Mono Channel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">1024</span>              <span class="c1"># Number of frames in the buffer</span>
@@ -44,8 +45,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">Objectify</span><span class="o">.</span><span class="n">fromDict</span><span class="p">({</span>  <span class="c1"># Method used to identify claps</span>
             <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;threshold&#39;</span><span class="p">,</span>
             <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">7000</span>
-        <span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pin</span> <span class="o">=</span> <span class="mi">24</span></div>
+        <span class="p">},</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
+            <span class="s1">&#39;on&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;Claps&#39;</span><span class="p">)]</span>
+
+<div class="viewcode-block" id="Settings.on2Claps"><a class="viewcode-back" href="../../piclap.settings.html#piclap.settings.Settings.on2Claps">[docs]</a>    <span class="k">def</span> <span class="nf">on2Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">flashLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Flashed light&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Settings.on3Claps"><a class="viewcode-back" href="../../piclap.settings.html#piclap.settings.Settings.on3Claps">[docs]</a>    <span class="k">def</span> <span class="nf">on3Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">toggleLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Toggled light&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Settings.on4Claps"><a class="viewcode-back" href="../../piclap.settings.html#piclap.settings.Settings.on4Claps">[docs]</a>    <span class="k">def</span> <span class="nf">on4Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Settings.updateMethod"><a class="viewcode-back" href="../../piclap.settings.html#piclap.settings.Settings.updateMethod">[docs]</a>    <span class="k">def</span> <span class="nf">updateMethod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">Objectify</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

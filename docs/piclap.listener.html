@@ -35,10 +35,17 @@
             
   <div class="section" id="module-piclap.listener">
 <span id="piclap-listener-module"></span><h1>piclap.listener module<a class="headerlink" href="#module-piclap.listener" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<p>A pypi demonstration vehicle.</p>
+<span class="target" id="module-pi-clap"></span><dl class="py class">
 <dt id="piclap.listener.Listener">
-<em class="property">class </em><code class="sig-prename descclassname">piclap.listener.</code><code class="sig-name descname">Listener</code><span class="sig-paren">(</span><em class="sig-param">config=&lt;piclap.settings.Settings object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/listener.html#Listener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.listener.Listener" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">piclap.listener.</code><code class="sig-name descname">Listener</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/listener.html#Listener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.listener.Listener" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (class: <cite>piclap.settings.Settings</cite>) – An object of <a class="reference internal" href="piclap.settings.html#piclap.settings.Settings" title="piclap.settings.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.settings.Settings</span></code></a> which is used for configuring the module</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="piclap.listener.Listener.clapWait">
 <code class="sig-name descname">clapWait</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clap</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/listener.html#Listener.clapWait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.listener.Listener.clapWait" title="Permalink to this definition">¶</a></dt>
