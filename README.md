@@ -9,7 +9,9 @@ pi-clap
 [![Downloads](https://img.shields.io/pypi/dm/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![License](https://img.shields.io/pypi/l/pi-clap)](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
 
-Clap detection and signalling program for Raspberry Pi
+A python package for clap detection
+
+**Platforms Supported:** *Raspberry Pi, Linux, MacOS*
 
 ### H/w Requirements
 
@@ -30,7 +32,6 @@ Clap detection and signalling program for Raspberry Pi
 
  * Rasbian OS [3]
  * Audio Driver [1],[2],[3]
-
 
 ### Setting up Raspberry Pi
 
