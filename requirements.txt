@@ -1,2 +1,3 @@
-pyaudio>=0.2.11
-munch>=2.5.0
+PyAudio>=0.2.11
+Munch>=2.5.0
+RPi.GPIO>=0.7.0 
