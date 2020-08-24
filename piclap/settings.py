@@ -1,8 +1,9 @@
 from munch import DefaultMunch as Objectify
-
+from piclap.controller import Controller
 
 class Settings():
-    def __init__(self):
+    def __init__(self, controller=None):
+        self.controller = controller or Controller()
         self.exit = False
         self.rate = 44100                   # Number of sample collected in 1sec
         self.channels = 1                   # 1 = Mono Channel
