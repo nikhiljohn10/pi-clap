@@ -44,7 +44,7 @@ class UserController(Controller):
     def __init__(self):
         super().__init__()
 
-    def lightBlinker(self, times=10, pin):
+    def lightBlinker(self, pin, times=10):
         '''Following code is only used when code runs on a Raspberry Pi'''
         # setPinOut(pin)
         # for i in range(times):
@@ -52,7 +52,7 @@ class UserController(Controller):
         #     sleep(0.5)
         #     self.gpio.output(pin, False)
         #     sleep(0.5)
-        print("Light blinks", time, "times on pin", pin)
+        print("Light blinks", times, "times on pin", pin)
 
 
 class Config(Settings):
@@ -88,7 +88,7 @@ class Config(Settings):
 
     def on5Claps(self):
         '''Custom action for 5 claps'''
-        self.controller.lightBlinker(times=5, pin=5)
+        self.controller.lightBlinker(pin=5, times=5)
 
 
 def main():
