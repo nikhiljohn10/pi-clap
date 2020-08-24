@@ -31,7 +31,7 @@ try:
         def cleanup(self):
             self.gpio.cleanup()
 
-except(ModuleNotFoundError):
+except(ModuleNotFoundError, RuntimeError):
 
     class Controller():
 
