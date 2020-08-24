@@ -1,6 +1,6 @@
 __project__ = "pi-clap"
 __version__ = "1.2"
-__release__ = "1.2.0"
+__release__ = "1.2.1a"
 __author__ = "Nikhil John"
 
 from .settings import Settings
