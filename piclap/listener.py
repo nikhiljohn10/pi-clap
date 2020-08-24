@@ -12,8 +12,8 @@ from time import sleep
 import _thread as thread
 import pyaudio
 
-from piclap.settings import Settings
-from piclap.processor import SignalProcessor
+from .settings import Settings
+from .processor import SignalProcessor
 
 
 class Listener():

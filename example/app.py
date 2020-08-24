@@ -21,9 +21,7 @@ except(ModuleNotFoundError):
 
 # Above code is only needed if piclap module is not installed using pip install
 
-from piclap.controller import Controller
-from piclap.settings import Settings
-from piclap.listener import Listener
+from piclap import Controller, Settings, Listener
 
 
 class UserController(Controller):
