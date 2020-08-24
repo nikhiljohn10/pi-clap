@@ -37,7 +37,7 @@ pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = 'alabaster'
+html_theme = 'classic'
 html_static_path = ['_static']
 
 # -- Extension configuration -------------------------------------------------
