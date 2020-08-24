@@ -29,7 +29,6 @@ class Listener():
                                       channels=self.config.channels,
                                       rate=self.config.rate,
                                       input=True,
-                                      output=True,
                                       frames_per_buffer=self.config.chunk_size)
         self.claps = 0
         self.lock = thread.allocate_lock()
