@@ -1,5 +1,5 @@
 from munch import DefaultMunch as Objectify
-from piclap import Controller
+from .controller import Controller
 
 class Settings():
     def __init__(self, controller=None):
