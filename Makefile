@@ -1,6 +1,6 @@
 SRCDIR				:= ./piclap
 DOCSDIR				:= ./docs
-DOCSRCDIR     := $(DOCSDIR)/source
+DOCSRCDIR			:= $(DOCSDIR)/source
 PROJECT				:= $(shell cat $(SRCDIR)/__init__.py | grep __project__ | sed -e 's/^.* = '\"'//' -e 's/'\"'//')
 AUTHOR				:= $(shell cat $(SRCDIR)/__init__.py | grep __author__ | sed -e 's/^.* = '\"'//' -e 's/'\"'//')
 VERSION				:= $(shell cat $(SRCDIR)/__init__.py | grep __version__ | sed -e 's/^.* = '\"'//' -e 's/'\"'//')

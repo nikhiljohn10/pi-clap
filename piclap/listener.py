@@ -29,7 +29,6 @@ class Listener():
                                       channels=self.config.channels,
                                       rate=self.config.rate,
                                       input=True,
-                                      output=True,
                                       frames_per_buffer=self.config.chunk_size)
         self.claps = 0
         self.lock = thread.allocate_lock()
@@ -54,7 +53,10 @@ class Listener():
         try:
             print("Clap detection started")
             while not self.config.exit:
-                data = self.stream.read(self.config.chunk_size)
+                try:
+                    data = self.stream.read(self.config.chunk_size)
+                except (OSError, IOError):
+                    data = None
                 if self.processor.findClap(data):
                     self.claps += 1
                 if self.claps == 1 and not self.lock.locked():

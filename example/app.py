@@ -75,7 +75,7 @@ class Config(Settings):
     def __init__(self):
         super().__init__(UserController())
         self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
-        self.interval = 1           # Adjust interval between claps
+        self.interval = 1.0         # Adjust interval between claps
         self.method.value = 10000   # Threshold value adjustment
 
     def on2Claps(self):
