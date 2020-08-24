@@ -10,22 +10,19 @@ Repo: https://github.com/nikhiljohn10/pi-clap
 Author: Nikhil John
 License: MIT
 """
+from piclap import __project__ as PROJECT, __author__ as AUTHOR, __release__ as VERSION
 
-
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from distutils.core import setup, find_packages
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name="pi-clap",
-    version="1.1.1",
-    author="Nikhil John",
+    name=PROJECT,
+    version=VERSION,
+    author=AUTHOR,
     author_email="ceo@jwala.diamonds",
-    description="A clap detection and signalling package created for Raspberry Pi",
+    description="A python package for clap detection",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/nikhiljohn10/pi-clap",

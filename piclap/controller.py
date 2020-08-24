@@ -12,25 +12,21 @@ try:
             self.gpio.setmode(self.gpio.BCM)
             self.setPinOut(pin=24)
 
-        def flashLight(self, pin=None):
-            gpio_pin = pin if pin != None else self.pin
-            self.gpio.output(gpio_pin, True)
+        def flashLight(self, pin=24):
+            self.gpio.output(pin, True)
             sleep(1)
-            self.gpio.output(gpio_pin, False)
-            print("Light flashed on pin", gpio_pin)
+            self.gpio.output(pin, False)
+            print("Light flashed on pin", pin)
 
-        def toggleLight(self, pin=None):
-            gpio_pin = pin if pin != None else self.pin
-            self.gpio.output(gpio_pin, not self.gpio.input(gpio_pin))
-            print("Light toggled on pin", gpio_pin)
+        def toggleLight(self, pin=24):
+            self.gpio.output(pin, not self.gpio.input(pin))
+            print("Light toggled on pin", pin)
 
         def setPinIn(self, pin):
             self.gpio.setup(pin, self.gpio.IN)
-            self.pin = pin
 
         def setPinOut(self, pin):
             self.gpio.setup(pin, self.gpio.OUT)
-            self.pin = pin
 
         def cleanup(self):
             self.gpio.cleanup()

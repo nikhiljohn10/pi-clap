@@ -109,6 +109,9 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.DS_Store
+Thumbs.db
+._.*
 
 # Spyder project settings
 .spyderproject

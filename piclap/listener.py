@@ -69,6 +69,7 @@ class Listener():
 
     def stop(self):
         print("\rExiting")
+        self.config.controller.cleanup()
         self.stream.stop_stream()
         self.stream.close()
         self.input.terminate()
