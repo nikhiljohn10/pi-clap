@@ -1,3 +1,6 @@
-PyAudio>=0.2.11
-Munch>=2.5.0
-RPi.GPIO>=0.7.0 
+PyAudio==0.2.11
+Munch==2.5.0
+Sphinx==3.2.1
+pytest==6.0.1
+twine==3.2.0
+sphinx-rtd-theme==0.5.0

@@ -1,0 +1,5 @@
+Upcomming
+=========
+
+* Adding advanced clap detection algorithms
+* Adding support for automation platforms like Amazon Alexa, Google Home, IFTTT etc.
