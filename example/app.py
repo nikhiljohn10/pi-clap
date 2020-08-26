@@ -57,7 +57,7 @@ class Config(Settings):
         '''Custom action for 2 claps'''
         # led = LED(4)
         # led.blink()
-        print("Light flashed on pin", 4)
+        print("Light flashed on pin 4")
 
     def on3Claps(self):
         '''Custom action for 3 claps'''

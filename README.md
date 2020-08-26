@@ -24,7 +24,7 @@ A python package for clap detection
 
 **Python 3**
 
- * RPi.GPIO
+ * gpiozero
  * pyaudio ( PortAudio is needed )
  * [munch](https://github.com/Infinidat/munch)
 
@@ -95,18 +95,17 @@ class Config(Settings):
 
     def __init__(self):
         '''Defines new and override existing properties here'''
-        super().__init__()
         self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
-        self.interval = 1.0         # Adjust interval between claps
+        self.interval = 0.5         # Adjust interval between claps
         self.method.value = 300		# Threshold value adjustment
 
     def on2Claps(self):
         '''Custom action for 2 claps'''
-        self.controller.flashLight(pin=4)
+        print("Light flashed on pin", 4)
 
     def on3Claps(self):
         '''Custom action for 3 claps'''
-        self.controller.toggleLight(pin=6)
+        print("Light toggled on pin", 6)
 
 config = Config()
 listener = Listener(config)

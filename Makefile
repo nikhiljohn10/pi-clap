@@ -17,6 +17,8 @@ help: version
 	@echo "  build          to build PyPi package"
 	@echo "  publish        to upload python package to PyPi server"
 	@echo "  test-publish   to upload python package to TestPyPi server"
+	@echo "  install        to install python package from PyPi server"
+	@echo "  test-install   to install python package from TestPyPi server"
 	@echo "  docs-clean     to clean the documentation directory"
 	@echo "  docs-build     to make documentation source directory"
 	@echo "  docs-html      to make standalone HTML documentation files for Github Pages"
