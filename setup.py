@@ -10,7 +10,7 @@ Repo: https://github.com/nikhiljohn10/pi-clap
 Author: Nikhil John
 License: MIT
 """
-from piclap import __project__ as PROJECT, __author__ as AUTHOR, __release__ as VERSION
+from piclap import __version__ as VERSION
 
 from setuptools import setup, find_packages
 
@@ -18,18 +18,20 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name=PROJECT,
+    name="pi-clap",
     version=VERSION,
-    author=AUTHOR,
+    author="Nikhil John",
     author_email="ceo@jwala.diamonds",
     description="A python package for clap detection",
+    url="https://pi-clap.nikz.in",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/nikhiljohn10/pi-clap",
+    download_url="https://github.com/nikhiljohn10/pi-clap",
     packages=find_packages(),
     license="MIT",
     classifiers=[
         "Intended Audience :: Developers",
+        'Environment :: Console',
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.6",

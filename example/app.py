@@ -21,15 +21,14 @@ except(ModuleNotFoundError):
 
 # Above code is only needed if piclap module is not installed using pip install
 
-from piclap import Controller, Settings, Listener
-
+from piclap import *
 
 class UserController(Controller):
     '''Describes the controller methods which are usually used while connected
     to a raspberry pi controller using the module `RPi.GPIO`. This class is not
     need when used without a Raspberry Pi.
 
-    format:
+    Format:
         class UserController(Controller):
 
             def __init__(self):
@@ -43,13 +42,15 @@ class UserController(Controller):
         super().__init__()
 
     def lightBlinker(self, pin, times=10):
-        '''Following code is only used when code runs on a Raspberry Pi'''
-        # setPinOut(pin)
-        # for i in range(times):
-        #     self.gpio.output(pin, True)
-        #     sleep(0.5)
-        #     self.gpio.output(pin, False)
-        #     sleep(0.5)
+        '''Following code is only used when code runs on a Raspberry Pi
+
+        setPinOut(pin)
+        for i in range(times):
+            self.gpio.output(pin, True)
+            sleep(0.5)
+            self.gpio.output(pin, False)
+            sleep(0.5)
+        '''
         print("Light blinks", times, "times on pin", pin)
 
 
