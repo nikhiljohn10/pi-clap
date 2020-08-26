@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append(os.path.abspath('.'))
 
-from piclap.settings import Settings
+from piclap import Settings
 
 def getSettings():
     config = Settings()

@@ -21,17 +21,14 @@ except(ModuleNotFoundError):
 
 # Above code is only needed if piclap module is not installed using pip install
 
-from piclap.controller import Controller
-from piclap.settings import Settings
-from piclap.listener import Listener
-
+from piclap import *
 
 class UserController(Controller):
     '''Describes the controller methods which are usually used while connected
     to a raspberry pi controller using the module `RPi.GPIO`. This class is not
     need when used without a Raspberry Pi.
 
-    format:
+    Format:
         class UserController(Controller):
 
             def __init__(self):
@@ -45,13 +42,15 @@ class UserController(Controller):
         super().__init__()
 
     def lightBlinker(self, pin, times=10):
-        '''Following code is only used when code runs on a Raspberry Pi'''
-        # setPinOut(pin)
-        # for i in range(times):
-        #     self.gpio.output(pin, True)
-        #     sleep(0.5)
-        #     self.gpio.output(pin, False)
-        #     sleep(0.5)
+        '''Following code is only used when code runs on a Raspberry Pi
+
+        setPinOut(pin)
+        for i in range(times):
+            self.gpio.output(pin, True)
+            sleep(0.5)
+            self.gpio.output(pin, False)
+            sleep(0.5)
+        '''
         print("Light blinks", times, "times on pin", pin)
 
 
@@ -75,7 +74,7 @@ class Config(Settings):
     def __init__(self):
         super().__init__(UserController())
         self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
-        self.interval = 1           # Adjust interval between claps
+        self.interval = 1.0         # Adjust interval between claps
         self.method.value = 10000   # Threshold value adjustment
 
     def on2Claps(self):

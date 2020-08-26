@@ -13,7 +13,7 @@ A python package for clap detection
 
 **Platforms Supported:** *Raspberry Pi, Linux, MacOS*
 
-### H/w Requirements
+### Hardware Requirements
 
  * Raspberry Pi
  * Microphone [5]
@@ -36,14 +36,14 @@ A python package for clap detection
 ### Setting up Raspberry Pi
 
 1. [Download Raspbian OS](http://www.raspberrypi.org/downloads/)
-2. [Install Raspbian OS in RPi](http://www.raspberrypi.org/documentation/installation/installing-images/)
+2. Install Raspbian OS in RPi [4]
 3. Plugin the USB input audio device(Audio Card or Microphone)
 4. Configure OS after OS bootup [6] `sudo raspi-config`
 5. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
 6. Reboot `sudo reboot` (This should enable the audio driver for the device connected)
 7. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
 8. Install pi-clap pip module `pip3 install pi-clap`
-9. Connect the output line to BCM #24 & #13 Pin on RPi.
+9. Connect the output line to BCM #4 & #6 Pin on Raspberry Pi.
 
 ( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )
 
@@ -87,19 +87,30 @@ pip3 install pyaudio munch || pip3 install --global-option='build_ext' --global-
 ```
 # Example code for using the package
 
-from piclap.listener import Listener
-from piclap.settings import Settings
+from piclap import Listener, Settings
 
-def main():
-    config = Settings()             # Optional
-    config.chunk_size = 512         # Reduce as power of 2 if pyaudio overflow
-    config.interval = 1             # Adjust interval between claps
-    config.customPin = 13           # Custom config variable
-    listener = Listener(config)     # 'config' argument is optional
-    listener.start()
 
-if __name__ == '__main__':
-    main()
+class Config(Settings):
+	'''This is an user defined derived class with `piclap.Settings` as base class'''
+
+    def __init__(self):
+        '''Defines new and override existing properties here'''
+        super().__init__()
+        self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
+        self.interval = 1.0         # Adjust interval between claps
+        self.method.value = 300		# Threshold value adjustment
+
+    def on2Claps(self):
+        '''Custom action for 2 claps'''
+        self.controller.flashLight(pin=4)
+
+    def on3Claps(self):
+        '''Custom action for 3 claps'''
+        self.controller.toggleLight(pin=6)
+
+config = Config()
+listener = Listener(config)
+listener.start()
 
 ```
 
@@ -114,12 +125,32 @@ pip3 install pi-clap
 ```
 git clone https://github.com/nikhiljohn10/pi-clap
 cd pi-clap
-python3 tests/app.py
+python3 ./example/app.py
 ```
 
 ### License
 
-[MIT](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
+**[MIT License](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)**
+
+Copyright (c) 2020 Nikhil John
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ### References
 
