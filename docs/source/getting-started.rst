@@ -50,13 +50,6 @@ MacOS
 Installation
 ------------
 
-Using Pip package
-^^^^^^^^^^^^^^^^^
-
-.. code-block:: sh
-
-    pip3 install pi-clap
-
 Using Git Clone
 ^^^^^^^^^^^^^^^
 
@@ -65,6 +58,16 @@ Using Git Clone
     git clone https://github.com/nikhiljohn10/pi-clap
     cd pi-clap
     make run
+
+Using Pip package
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: sh
+
+    pip3 install pi-clap
+
+**Use the module as it is given in the example below.**
+
 
 Example code
 ------------
@@ -82,7 +85,7 @@ Example code
             super().__init__()
             self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
             self.interval = 1.0         # Adjust interval between claps
-            self.method.value = 300		# Threshold value adjustment
+            self.method.value = 300	# Threshold value adjustment
 
         def on2Claps(self):
             '''Custom action for 2 claps'''
@@ -95,3 +98,5 @@ Example code
     config = Config()
     listener = Listener(config)
     listener.start()
+
+If you are using **Raspberry Pi**, use the extended version of this example: `app.py <https://github.com/nikhiljohn10/pi-clap/blob/master/example/app.py>`_

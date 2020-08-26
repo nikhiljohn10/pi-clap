@@ -50,6 +50,7 @@ clean: clean-build
 	@find . -name '.DS_Store' -exec rm -f {} +
 	@find . -name 'Thumbs.db' -exec rm -f {} +
 	@find . -name '__pycache__' -exec rm -rf {} +
+	@find . -name '.pytest_cache' -exec rm -rf {} +
 
 build: clean test
 	@python3 setup.py sdist bdist_wheel
@@ -62,15 +63,24 @@ test-publish: build
 	@twine upload --repository testpypi dist/*
 	@make clean
 
+install: clean setup
+	@pip3 install pi-clap==$(RELEASE)
+
+test-install: clean setup
+	@pip3 install --index-url https://test.pypi.org/simple/ pi-clap==$(RELEASE)
+
+uninstall:
+	@pip uninstall pi-clap
+
 docs-clean:
-	@rm -rf $(DOCSDIR)
+	@rm -rf $(DOCSDIR)/_* $(DOCSDIR)/*.* $(DOCSDIR)/.buildinfo $(DOCSRCDIR)/_build/html $(DOCSRCDIR)/_build/doctrees
 
 docs-build: version
 	@echo "Compiling package documentation"
 	@sphinx-apidoc -f -F -e -a -l -d 5 -H '$(PROJECT)' -A '$(AUTHOR)' -V '$(VERSION)' -R '$(RELEASE)' -o $(DOCSRCDIR) $(SRCDIR)
 	@sed -i '' -e 's/path\.insert\(.*\)$$/path.append\('\''..\/..'\''\)/' -e "s/alabaster/$(DOCTHEME)/" $(DOCSRCDIR)/conf.py
 
-docs-html:
+docs-html: docs-clean
 	@cd $(DOCSRCDIR) && make html
 	@echo 'Moving HTML files to docs directory'
 	@cp -af $(DOCSRCDIR)/_build/html/. $(DOCSDIR)
@@ -82,17 +92,11 @@ docs-html:
 docs-auto: docs-build docs-html
 
 .PHONY:
-	version
 	help
-	setup
 	test
-	run
-	clean-build
+	version
+	setup
 	clean
 	build
 	publish
-	test-publish
-	docs-clean
-	docs-build
-	docs-html
-	docs-auto
+	install

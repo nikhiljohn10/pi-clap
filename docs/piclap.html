@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; Pi Clap 1.2.1b documentation</title>
+  <title>Documentation &mdash; Pi Clap 1.2.1 documentation</title>
   
 
   
@@ -86,15 +86,25 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+</ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-piclap">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listener-module">Listener Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings-module">Settings Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controller-module">Controller Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signalprocessor-module">SignalProcessor Module</a></li>
 </ul>
 </li>
 </ul>
+<p class="caption"><span class="caption-text">Links</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/pi-clap/">Python Package</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/nikhiljohn10/pi-clap">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
 
@@ -163,67 +173,94 @@
             
   <div class="section" id="documentation">
 <h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-piclap">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-piclap" title="Permalink to this headline">¶</a></h2>
-<p>A python package for clap detection</p>
-<span class="target" id="module-pi-clap"></span><dl class="py class">
-<dt id="piclap.Controller">
-<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Controller</code><a class="reference internal" href="_modules/piclap/_controller.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt id="piclap.Controller.cleanup">
-<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.cleanup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="piclap.Controller.flashLight">
-<code class="sig-name descname">flashLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.flashLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.flashLight" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="piclap.Controller.toggleLight">
-<code class="sig-name descname">toggleLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.toggleLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.toggleLight" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="listener-module">
+<h2>Listener Module<a class="headerlink" href="#listener-module" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="piclap.Listener">
 <em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Listener</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</p>
+<dd><p>Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>config</strong> (class: <cite>piclap.Settings</cite>) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> which is used for configuring the module</p>
+<dd class="field-odd"><p><strong>config</strong> (class: <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> or None) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> which is used for configuring the module</p>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><strong>config</strong></a> (class: <cite>piclap.Settings</cite>) – Store the <cite>Settings</cite> object</p></li>
+<li><p><a class="reference internal" href="#piclap.Listener.input" title="piclap.Listener.input"><strong>input</strong></a> (class: <cite>pyaudio.PyAudio</cite>) – Store the <cite>PyAudio</cite> object</p></li>
+<li><p><a class="reference internal" href="#piclap.Listener.stream" title="piclap.Listener.stream"><strong>stream</strong></a> (class: <cite>pyaudio.Stream</cite>) – Open a new input audio stream and store the stream object</p></li>
+<li><p><strong>claps</strong> (<em>int</em>) – Store current value of claps counted and initially set to <cite>0</cite></p></li>
+<li><p><strong>lock</strong> (<em>thread.lock</em>) – Store the thread lock</p></li>
+<li><p><a class="reference internal" href="#piclap.Listener.processor" title="piclap.Listener.processor"><strong>processor</strong></a> (class: <cite>piclap.SignalProcessor</cite>) – Store the <cite>Processor</cite> object</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="piclap.Listener.clapWait">
 <code class="sig-name descname">clapWait</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clap</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.clapWait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.clapWait" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Start waiting for an interval of time recursively until no more new claps are detected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>clap</strong> (<em>int</em>) – Number of claps found at the time of wait initialised</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Listener.config">
+<code class="sig-name descname">config</code><a class="headerlink" href="#piclap.Listener.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a> parameter is empty, an object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> is assigned</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Listener.input">
+<code class="sig-name descname">input</code><a class="headerlink" href="#piclap.Listener.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialised with an <code class="xref py py-class docutils literal notranslate"><span class="pre">pyaudio.PyAudio</span></code> object</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Listener.listenClaps">
 <code class="sig-name descname">listenClaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threadName</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.listenClaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.listenClaps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method runs on a child thread with <code class="xref py py-attr docutils literal notranslate"><span class="pre">lock</span></code> when <code class="xref py py-attr docutils literal notranslate"><span class="pre">claps</span> <span class="pre">==</span> <span class="pre">1</span></code> and reset the class property <code class="xref py py-attr docutils literal notranslate"><span class="pre">claps</span></code> to zero when execution is finished</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threadName</strong> (<em>str</em>) – Name of the child thread started</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Listener.processor">
+<code class="sig-name descname">processor</code><a class="headerlink" href="#piclap.Listener.processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialised with an <a class="reference internal" href="#piclap.SignalProcessor" title="piclap.SignalProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.SignalProcessor</span></code></a> object using the signal processing method found inside <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a></p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Listener.start">
 <code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using <a class="reference internal" href="#piclap.SignalProcessor" title="piclap.SignalProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.SignalProcessor</span></code></a></p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Listener.stop">
 <code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>When this method is called, the listener stop listening by closing the stream safely and terminating the connection</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Listener.stream">
+<code class="sig-name descname">stream</code><a class="headerlink" href="#piclap.Listener.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialised with an <code class="xref py py-class docutils literal notranslate"><span class="pre">pyaudio.Stream</span></code> object</p>
+</dd></dl>
 
 </dd></dl>
 
+</div>
+<div class="section" id="settings-module">
+<h2>Settings Module<a class="headerlink" href="#settings-module" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="piclap.Settings">
 <em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Settings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">controller</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class describes all the configurations needed for the <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Listener</span></code></a> to work.</p>
+<dd><p>This class describes all the configurations needed for the <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Listener</span></code></a> to work.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>controller</strong> (class: <cite>piclap.Controller</cite>, optional) – A <a class="reference internal" href="#piclap.Controller" title="piclap.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Controller</span></code></a> object</p>
@@ -247,6 +284,68 @@
 <dl class="py method">
 <dt id="piclap.Settings.updateMethod">
 <code class="sig-name descname">updateMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.updateMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.updateMethod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="controller-module">
+<h2>Controller Module<a class="headerlink" href="#controller-module" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="piclap.Controller">
+<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Controller</code><a class="reference internal" href="_modules/piclap/_controller.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes methods which uses Raspberry Pi GPIO module to control the pins on Raspberry Pi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><p><strong>gpio</strong> (object: <cite>RPi.GPIO</cite>) – Hold the <cite>RPi.GPIO</cite> module</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="piclap.Controller.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="piclap.Controller.flashLight">
+<code class="sig-name descname">flashLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.flashLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.flashLight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="piclap.Controller.toggleLight">
+<code class="sig-name descname">toggleLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.toggleLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.toggleLight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="signalprocessor-module">
+<h2>SignalProcessor Module<a class="headerlink" href="#signalprocessor-module" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="piclap.SignalProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">SignalProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="piclap.SignalProcessor.findClap">
+<code class="sig-name descname">findClap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.findClap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.findClap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="piclap.SignalProcessor.useFFT">
+<code class="sig-name descname">useFFT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useFFT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useFFT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="piclap.SignalProcessor.useFiter">
+<code class="sig-name descname">useFiter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useFiter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useFiter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="piclap.SignalProcessor.useThreshold">
+<code class="sig-name descname">useThreshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useThreshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useThreshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="piclap.SignalProcessor.useWavelets">
+<code class="sig-name descname">useWavelets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useWavelets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useWavelets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

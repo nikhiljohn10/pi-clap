@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>piclap._controller &mdash; Pi Clap 1.2.1b documentation</title>
+  <title>piclap._controller &mdash; Pi Clap 1.2.1 documentation</title>
   
 
   
@@ -84,10 +84,18 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../piclap.html">Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/pi-clap/">Python Package</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/nikhiljohn10/pi-clap">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -162,10 +170,13 @@
     <span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="k">as</span> <span class="nn">GPIO</span>
 
     <span class="k">class</span> <span class="nc">Controller</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Describes methods which uses Raspberry Pi GPIO module to control the pins on Raspberry Pi.</span>
 
+<span class="sd">        :ivar gpio: Hold the `RPi.GPIO` module</span>
+<span class="sd">        :vartype gpio: class: `RPi.GPIO`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span> <span class="o">=</span> <span class="n">GPIO</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gpio</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setPinOut</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
@@ -192,8 +203,13 @@
 <span class="k">except</span><span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
 
 <div class="viewcode-block" id="Controller"><a class="viewcode-back" href="../../piclap.html#piclap.Controller">[docs]</a>    <span class="k">class</span> <span class="nc">Controller</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;Describes methods which uses Raspberry Pi GPIO module to control the pins on Raspberry Pi.</span>
 
+<span class="sd">        :ivar gpio: Hold the `RPi.GPIO` module</span>
+<span class="sd">        :vartype gpio: object: `RPi.GPIO`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
             <span class="k">pass</span>
 
 <div class="viewcode-block" id="Controller.flashLight"><a class="viewcode-back" href="../../piclap.html#piclap.Controller.flashLight">[docs]</a>        <span class="k">def</span> <span class="nf">flashLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

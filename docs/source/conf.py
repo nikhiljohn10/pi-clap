@@ -11,9 +11,16 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import re
 import sys
 import sphinx_rtd_theme
-sys.path.append('../..')
+sys.path.append(os.path.abspath('../..'))
+from piclap import __version__ as RELEASE
+
+try:
+    VERSION = re.search('^(\d+.\d+).*$', RELEASE).group(1)
+except AttributeError:
+    VERSION = RELEASE
 
 # -- Project information -----------------------------------------------------
 
@@ -22,10 +29,10 @@ copyright = '2020, Nikhil John'
 author = 'Nikhil John'
 
 # The short X.Y version
-version = '1.2'
+version = VERSION
 
 # The full version, including alpha/beta/rc tags
-release = '1.2.1b'
+release = RELEASE
 
 
 # -- General configuration ---------------------------------------------------

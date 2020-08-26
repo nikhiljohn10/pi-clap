@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; Pi Clap 1.2.1b documentation</title>
+  <title>Getting Started &mdash; Pi Clap 1.2.1 documentation</title>
   
 
   
@@ -86,7 +86,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+</ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
@@ -97,14 +100,19 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#using-pip-package">Using Pip package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-git-clone">Using Git Clone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-pip-package">Using Pip package</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#example-code">Example code</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="piclap.html">Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/pi-clap/">Python Package</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/nikhiljohn10/pi-clap">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -218,12 +226,6 @@ pip3 install pyaudio munch <span class="o">||</span> pip3 install --global-optio
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="using-pip-package">
-<h3>Using Pip package<a class="headerlink" href="#using-pip-package" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip3 install pi-clap
-</pre></div>
-</div>
-</div>
 <div class="section" id="using-git-clone">
 <h3>Using Git Clone<a class="headerlink" href="#using-git-clone" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nikhiljohn10/pi-clap
@@ -231,6 +233,13 @@ pip3 install pyaudio munch <span class="o">||</span> pip3 install --global-optio
 make run
 </pre></div>
 </div>
+</div>
+<div class="section" id="using-pip-package">
+<h3>Using Pip package<a class="headerlink" href="#using-pip-package" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip3 install pi-clap
+</pre></div>
+</div>
+<p><strong>Use the module as it is given in the example below.</strong></p>
 </div>
 </div>
 <div class="section" id="example-code">
@@ -246,7 +255,7 @@ make run
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">512</span>       <span class="c1"># Reduce as power of 2 if pyaudio overflow</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="mf">1.0</span>         <span class="c1"># Adjust interval between claps</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">300</span>             <span class="c1"># Threshold value adjustment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">300</span>     <span class="c1"># Threshold value adjustment</span>
 
     <span class="k">def</span> <span class="nf">on2Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Custom action for 2 claps&#39;&#39;&#39;</span>
@@ -261,6 +270,7 @@ make run
 <span class="n">listener</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>If you are using <strong>Raspberry Pi</strong>, use the extended version of this example: <a class="reference external" href="https://github.com/nikhiljohn10/pi-clap/blob/master/example/app.py">app.py</a></p>
 </div>
 </div>
 

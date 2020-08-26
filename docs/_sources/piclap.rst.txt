@@ -1,10 +1,34 @@
 Documentation
 ==============
 
-Module contents
+Listener Module
 ---------------
 
-.. automodule:: piclap
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autoclass:: piclap.Listener
+  :members:
+  :undoc-members:
+  :inherited-members:
+
+Settings Module
+---------------
+
+.. autoclass:: piclap.Settings
+  :members:
+  :undoc-members:
+  :inherited-members:
+
+Controller Module
+-----------------
+
+.. autoclass:: piclap.Controller
+  :members:
+  :undoc-members:
+  :inherited-members:
+
+SignalProcessor Module
+----------------------
+
+.. autoclass:: piclap.SignalProcessor
+  :members:
+  :undoc-members:
+  :inherited-members:

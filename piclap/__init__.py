@@ -10,8 +10,9 @@
 from ._settings import Settings
 from ._listener import Listener
 from ._controller import Controller
+from ._processor import SignalProcessor
 
 __project__ = 'pi-clap'
-__version__ = '1.2.1b'
+__version__ = '1.2.1'
 __author__ = 'Nikhil John'
-__all__ = ['Settings', 'Listener', 'Controller']
+__all__ = ['Settings', 'Listener', 'Controller', 'SignalProcessor']

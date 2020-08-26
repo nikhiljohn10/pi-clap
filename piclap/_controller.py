@@ -6,10 +6,13 @@ try:
     import RPi.GPIO as GPIO
 
     class Controller():
-        """
+        """Describes methods which uses Raspberry Pi GPIO module to control the pins on Raspberry Pi.
 
+        :ivar gpio: Hold the `RPi.GPIO` module
+        :vartype gpio: class: `RPi.GPIO`
         """
         def __init__(self):
+            """Constructor method"""
             self.gpio = GPIO
             self.gpio.setmode(self.gpio.BCM)
             self.setPinOut(pin=24)
@@ -36,8 +39,13 @@ try:
 except(ModuleNotFoundError, RuntimeError, ImportError):
 
     class Controller():
+        """Describes methods which uses Raspberry Pi GPIO module to control the pins on Raspberry Pi.
 
+        :ivar gpio: Hold the `RPi.GPIO` module
+        :vartype gpio: object: `RPi.GPIO`
+        """
         def __init__(self):
+            """Constructor method"""
             pass
 
         def flashLight(self, pin=None):
