@@ -14,6 +14,7 @@ class SignalProcessor():
     """
 
     """
+
     def __init__(self, method):
         self.method_id = DETECTION_METHODS.index(method.name)
         self.method = method

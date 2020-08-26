@@ -1,3 +1,4 @@
+gpiozero==1.5.1
 PyAudio==0.2.11
 Munch==2.5.0
 Sphinx==3.2.1

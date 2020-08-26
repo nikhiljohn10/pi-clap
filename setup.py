@@ -46,7 +46,8 @@ setup(
     py_modules=['piclap'],
     python_requires='>=3.6',
     install_requires=[
-        "pyaudio>=0.2.11",
-        "munch>=2.5.0",
+        "gpiozero==1.5.1",
+        "pyaudio==0.2.11",
+        "munch==2.5.0",
     ],
 )
