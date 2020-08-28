@@ -51,9 +51,9 @@ Dependencies
 
 * `Python 3.6+ <https://docs.python.org/3/>`_
 * `PortAudio <http://www.portaudio.com/>`_ (Need to be installed manually)
-* `RPi.GPIO <https://github.com/Infinidat/munch>`_
-* `PyAudio <https://github.com/Infinidat/munch>`_
-* `Munch <https://github.com/Infinidat/munch>`_
+* `gpiozero <https://gpiozero.readthedocs.io>`_
+* `PyAudio <https://pypi.org/project/PyAudio>`_
+* `Munch <https://pypi.org/project/munch/>`_
 * Audio Driver (Automatically loaded by OS after a restart)
 
 Upcoming features

@@ -252,18 +252,17 @@ make run
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Defines new and override existing properties here&#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">512</span>       <span class="c1"># Reduce as power of 2 if pyaudio overflow</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="mf">1.0</span>         <span class="c1"># Adjust interval between claps</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">300</span>     <span class="c1"># Threshold value adjustment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="mf">0.5</span>         <span class="c1"># Adjust interval between claps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">300</span>             <span class="c1"># Threshold value adjustment</span>
 
     <span class="k">def</span> <span class="nf">on2Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Custom action for 2 claps&#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">flashLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed on pin&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">on3Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Custom action for 3 claps&#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">toggleLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
 <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 <span class="n">listener</span> <span class="o">=</span> <span class="n">Listener</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
