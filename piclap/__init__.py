@@ -12,6 +12,6 @@ from ._listener import Listener
 from ._processor import SignalProcessor
 
 __project__ = 'pi-clap'
-__version__ = '1.2.1'
+__version__ = '1.3'
 __author__ = 'Nikhil John'
 __all__ = ['Settings', 'Listener', 'SignalProcessor']
