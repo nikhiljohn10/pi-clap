@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>piclap._listener &mdash; Pi Clap 1.2.1 documentation</title>
+  <title>piclap._listener &mdash; Pi Clap 1.3 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.2
+                1.3
               </div>
             
           
@@ -174,10 +174,10 @@
 <div class="viewcode-block" id="Listener"><a class="viewcode-back" href="../../piclap.html#piclap.Listener">[docs]</a><span class="k">class</span> <span class="nc">Listener</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</span>
 
-<span class="sd">    :param config: An object of :class:`piclap.Settings` which is used for configuring the module</span>
-<span class="sd">    :type config: class: :class:`piclap.Settings` or None</span>
+<span class="sd">    :param config: An object of :class:`Settings` which is used for configuring the module, defaults to None</span>
+<span class="sd">    :type config: class: :class:`Settings`</span>
 <span class="sd">    :var config: Store the `Settings` object</span>
-<span class="sd">    :vartype config: class: `piclap.Settings`</span>
+<span class="sd">    :vartype config: class: `Settings`</span>
 <span class="sd">    :var input: Store the `PyAudio` object</span>
 <span class="sd">    :vartype input: class: `pyaudio.PyAudio`</span>
 <span class="sd">    :var stream: Open a new input audio stream and store the stream object</span>
@@ -186,12 +186,13 @@
 <span class="sd">    :var lock: Store the thread lock</span>
 <span class="sd">    :vartype lock: thread.lock</span>
 <span class="sd">    :var processor: Store the `Processor` object</span>
-<span class="sd">    :vartype processor: class: `piclap.SignalProcessor`</span>
+<span class="sd">    :vartype processor: class: `SignalProcessor`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">Settings</span><span class="p">()</span>
-        <span class="sd">&quot;&quot;&quot;If the :attr:`config` parameter is empty, an object of :class:`piclap.Settings` is assigned&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;If the :attr:`config` parameter is ``None``, an object of :class:`Settings` is assigned&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;Initialised with an :class:`pyaudio.PyAudio` object&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span><span class="p">,</span>
@@ -201,9 +202,12 @@
                                       <span class="n">frames_per_buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;Initialised with an :class:`pyaudio.Stream` object&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="sd">&quot;&quot;&quot;**default:** ``0``</span>
+
+<span class="sd">        This class property contains the current count of claps detected&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">SignalProcessor</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
-        <span class="sd">&quot;&quot;&quot;Initialised with an :class:`piclap.SignalProcessor` object using the signal processing method found inside :attr:`config`&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialised with an :class:`SignalProcessor` object using the signal processing method found inside :attr:`config`&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Listener.clapWait"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.clapWait">[docs]</a>    <span class="k">def</span> <span class="nf">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clap</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start waiting for an interval of time recursively until no more new claps are detected</span>
@@ -215,21 +219,24 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Listener.listenClaps"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.listenClaps">[docs]</a>    <span class="k">def</span> <span class="nf">listenClaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threadName</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This method runs on a child thread with :attr:`lock` when :attr:`claps == 1` and reset the class property :attr:`claps` to zero when execution is finished</span>
+        <span class="sd">&quot;&quot;&quot;This method runs on a child thread with :attr:`lock` when :attr:`claps` equals ``1`` and reset the class property :attr:`claps` to ``0`` when execution is finished</span>
 
 <span class="sd">        :param str threadName: Name of the child thread started</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Waiting for claps...&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span>
-            <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;Claps&#39;</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;Claps&#39;</span>
             <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">action</span><span class="p">)()</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You clapped&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">,</span> <span class="s2">&quot;times.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">=</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="Listener.start"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using :class:`piclap.SignalProcessor`&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using :class:`SignalProcessor` until :attr:`Settings.exit` flag is ``True``</span>
+
+<span class="sd">        :raises: ``KeyboardInterrupt``: If **Control + C** is pressed on keyboard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clap detection started&quot;</span><span class="p">)</span>
             <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">exit</span><span class="p">:</span>
@@ -249,7 +256,6 @@
 <div class="viewcode-block" id="Listener.stop"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;When this method is called, the listener stop listening by closing the stream safely and terminating the connection&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Exiting&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stop_stream</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span></div></div>

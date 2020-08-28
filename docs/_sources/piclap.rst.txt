@@ -17,14 +17,6 @@ Settings Module
   :undoc-members:
   :inherited-members:
 
-Controller Module
------------------
-
-.. autoclass:: piclap.Controller
-  :members:
-  :undoc-members:
-  :inherited-members:
-
 SignalProcessor Module
 ----------------------
 

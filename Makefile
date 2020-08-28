@@ -17,10 +17,11 @@ help: version
 	@echo "  build          to build PyPi package"
 	@echo "  publish        to upload python package to PyPi server"
 	@echo "  test-publish   to upload python package to TestPyPi server"
+	@echo "  install        to install python package from PyPi server"
+	@echo "  test-install   to install python package from TestPyPi server"
 	@echo "  docs-clean     to clean the documentation directory"
 	@echo "  docs-build     to make documentation source directory"
 	@echo "  docs-html      to make standalone HTML documentation files for Github Pages"
-	@echo "  docs-auto      to execute 'make docs-build' and 'make docs-html' together"
 
 version:
 	@echo "\n\t#################################"
@@ -73,7 +74,7 @@ uninstall:
 	@pip uninstall pi-clap
 
 docs-clean:
-	@rm -rf $(DOCSDIR)/_* $(DOCSDIR)/*.* $(DOCSDIR)/.buildinfo $(DOCSRCDIR)/_build/html $(DOCSRCDIR)/_build/doctrees
+	@rm -rf $(DOCSDIR)/_* $(DOCSDIR)/*.* $(DOCSDIR)/.buildinfo $(DOCSRCDIR)/_build/*
 
 docs-build: version
 	@echo "Compiling package documentation"
@@ -88,8 +89,6 @@ docs-html: docs-clean
 	@echo '$(DOMAIN)' > $(DOCSDIR)/CNAME
 	@echo 'Documentation successfully created.'
 	@touch $(DOCSDIR)/.nojekyll
-
-docs-auto: docs-build docs-html
 
 .PHONY:
 	help

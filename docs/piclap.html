@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; Pi Clap 1.2.1 documentation</title>
+  <title>Documentation &mdash; Pi Clap 1.3 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.2
+                1.3
               </div>
             
           
@@ -95,7 +95,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#listener-module">Listener Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#settings-module">Settings Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#controller-module">Controller Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#signalprocessor-module">SignalProcessor Module</a></li>
 </ul>
 </li>
@@ -181,16 +180,16 @@
 <dd><p>Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>config</strong> (class: <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> or None) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> which is used for configuring the module</p>
+<dd class="field-odd"><p><strong>config</strong> (class: <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> which is used for configuring the module, defaults to None</p>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><strong>config</strong></a> (class: <cite>piclap.Settings</cite>) – Store the <cite>Settings</cite> object</p></li>
+<li><p><a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><strong>config</strong></a> (class: <cite>Settings</cite>) – Store the <cite>Settings</cite> object</p></li>
 <li><p><a class="reference internal" href="#piclap.Listener.input" title="piclap.Listener.input"><strong>input</strong></a> (class: <cite>pyaudio.PyAudio</cite>) – Store the <cite>PyAudio</cite> object</p></li>
 <li><p><a class="reference internal" href="#piclap.Listener.stream" title="piclap.Listener.stream"><strong>stream</strong></a> (class: <cite>pyaudio.Stream</cite>) – Open a new input audio stream and store the stream object</p></li>
-<li><p><strong>claps</strong> (<em>int</em>) – Store current value of claps counted and initially set to <cite>0</cite></p></li>
+<li><p><a class="reference internal" href="#piclap.Listener.claps" title="piclap.Listener.claps"><strong>claps</strong></a> (<em>int</em>) – Store current value of claps counted and initially set to <cite>0</cite></p></li>
 <li><p><strong>lock</strong> (<em>thread.lock</em>) – Store the thread lock</p></li>
-<li><p><a class="reference internal" href="#piclap.Listener.processor" title="piclap.Listener.processor"><strong>processor</strong></a> (class: <cite>piclap.SignalProcessor</cite>) – Store the <cite>Processor</cite> object</p></li>
+<li><p><a class="reference internal" href="#piclap.Listener.processor" title="piclap.Listener.processor"><strong>processor</strong></a> (class: <cite>SignalProcessor</cite>) – Store the <cite>Processor</cite> object</p></li>
 </ul>
 </dd>
 </dl>
@@ -206,9 +205,16 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt id="piclap.Listener.claps">
+<code class="sig-name descname">claps</code><a class="headerlink" href="#piclap.Listener.claps" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>This class property contains the current count of claps detected</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="piclap.Listener.config">
 <code class="sig-name descname">config</code><a class="headerlink" href="#piclap.Listener.config" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a> parameter is empty, an object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Settings</span></code></a> is assigned</p>
+<dd><p>If the <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a> parameter is <code class="docutils literal notranslate"><span class="pre">None</span></code>, an object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> is assigned</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -220,7 +226,7 @@
 <dl class="py method">
 <dt id="piclap.Listener.listenClaps">
 <code class="sig-name descname">listenClaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threadName</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.listenClaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.listenClaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method runs on a child thread with <code class="xref py py-attr docutils literal notranslate"><span class="pre">lock</span></code> when <code class="xref py py-attr docutils literal notranslate"><span class="pre">claps</span> <span class="pre">==</span> <span class="pre">1</span></code> and reset the class property <code class="xref py py-attr docutils literal notranslate"><span class="pre">claps</span></code> to zero when execution is finished</p>
+<dd><p>This method runs on a child thread with <code class="xref py py-attr docutils literal notranslate"><span class="pre">lock</span></code> when <a class="reference internal" href="#piclap.Listener.claps" title="piclap.Listener.claps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">claps</span></code></a> equals <code class="docutils literal notranslate"><span class="pre">1</span></code> and reset the class property <a class="reference internal" href="#piclap.Listener.claps" title="piclap.Listener.claps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">claps</span></code></a> to <code class="docutils literal notranslate"><span class="pre">0</span></code> when execution is finished</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>threadName</strong> (<em>str</em>) – Name of the child thread started</p>
@@ -231,13 +237,18 @@
 <dl class="py attribute">
 <dt id="piclap.Listener.processor">
 <code class="sig-name descname">processor</code><a class="headerlink" href="#piclap.Listener.processor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialised with an <a class="reference internal" href="#piclap.SignalProcessor" title="piclap.SignalProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.SignalProcessor</span></code></a> object using the signal processing method found inside <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a></p>
+<dd><p>Initialised with an <a class="reference internal" href="#piclap.SignalProcessor" title="piclap.SignalProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignalProcessor</span></code></a> object using the signal processing method found inside <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Listener.start">
 <code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using <a class="reference internal" href="#piclap.SignalProcessor" title="piclap.SignalProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.SignalProcessor</span></code></a></p>
+<dd><p>When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using <a class="reference internal" href="#piclap.SignalProcessor" title="piclap.SignalProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SignalProcessor</span></code></a> until <a class="reference internal" href="#piclap.Settings.exit" title="piclap.Settings.exit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Settings.exit</span></code></a> flag is <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code>: If <strong>Control + C</strong> is pressed on keyboard</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -263,57 +274,104 @@
 <dd><p>This class describes all the configurations needed for the <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Listener</span></code></a> to work.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>controller</strong> (class: <cite>piclap.Controller</cite>, optional) – A <a class="reference internal" href="#piclap.Controller" title="piclap.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Controller</span></code></a> object</p>
+<dd class="field-odd"><p><strong>controller</strong> (class: <cite>piclap.Controller</cite>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Controller</span></code> object, defaults to None</p>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#piclap.Settings.controller" title="piclap.Settings.controller"><strong>controller</strong></a> (class: <cite>piclap.Controller</cite>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.exit" title="piclap.Settings.exit"><strong>exit</strong></a> (<em>boolean</em>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.rate" title="piclap.Settings.rate"><strong>rate</strong></a> (<em>int</em>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.channels" title="piclap.Settings.channels"><strong>channels</strong></a> (<em>int</em>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.chunk_size" title="piclap.Settings.chunk_size"><strong>chunk_size</strong></a> (<em>int</em>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.interval" title="piclap.Settings.interval"><strong>interval</strong></a> (<em>float</em>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.method" title="piclap.Settings.method"><strong>method</strong></a> (class: <cite>piclap.Controller</cite>) – Holds the controller object passed as argument</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.actions" title="piclap.Settings.actions"><strong>actions</strong></a> (class: <cite>piclap.Controller</cite>) – Holds the controller object passed as argument</p></li>
+</ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt id="piclap.Settings.actions">
+<code class="sig-name descname">actions</code><a class="headerlink" href="#piclap.Settings.actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>When the class initialised, it collects all the actions defined inside this class as well as any classes where are derived with this class as base class</p>
+<p><strong>Condition:</strong> __The method name defined should start with ‘on’ and end with ‘Claps’ with the clap count inbetween them.__</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.channels">
+<code class="sig-name descname">channels</code><a class="headerlink" href="#piclap.Settings.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">1</span></code> (Mono Channel)</p>
+<p>Number of audio channel to listen</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.chunk_size">
+<code class="sig-name descname">chunk_size</code><a class="headerlink" href="#piclap.Settings.chunk_size" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">1024</span></code></p>
+<p>Number of frames in the input audio buffer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.controller">
+<code class="sig-name descname">controller</code><a class="headerlink" href="#piclap.Settings.controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the <a class="reference internal" href="#piclap.Settings.controller" title="piclap.Settings.controller"><code class="xref py py-attr docutils literal notranslate"><span class="pre">controller</span></code></a> parameter is <code class="docutils literal notranslate"><span class="pre">None</span></code>, an object of <code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Controller</span></code> is assigned</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.exit">
+<code class="sig-name descname">exit</code><a class="headerlink" href="#piclap.Settings.exit" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+<p>Exit flag</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.interval">
+<code class="sig-name descname">interval</code><a class="headerlink" href="#piclap.Settings.interval" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">0.5</span></code></p>
+<p>Time duration to wait inside <a class="reference internal" href="#piclap.Listener.clapWait" title="piclap.Listener.clapWait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">piclap.Listener.clapWait()</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.method">
+<code class="sig-name descname">method</code><a class="headerlink" href="#piclap.Settings.method" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="code docutils literal notranslate"><span class="pre">{'name':</span> <span class="pre">'threshold','value':</span> <span class="pre">7000}</span></code></p>
+<p>Detection method used for identifing claps</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="piclap.Settings.on2Claps">
 <code class="sig-name descname">on2Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on2Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on2Claps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Action performed when 2 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">piclap.Controller.flashLight()</span></code> on pin 13</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Settings.on3Claps">
 <code class="sig-name descname">on3Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on3Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on3Claps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Action performed when 3 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">piclap.Controller.toggleLight()</span></code> on pin 24</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Settings.on4Claps">
 <code class="sig-name descname">on4Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on4Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on4Claps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Action performed when 4 claps are detected. As default, <a class="reference internal" href="#piclap.Settings.exit" title="piclap.Settings.exit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">exit</span></code></a> flag is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if 4 claps are detected</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.rate">
+<code class="sig-name descname">rate</code><a class="headerlink" href="#piclap.Settings.rate" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">44100</span></code></p>
+<p>Number of audio samples collected in 1 second</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Settings.updateMethod">
 <code class="sig-name descname">updateMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.updateMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.updateMethod" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="controller-module">
-<h2>Controller Module<a class="headerlink" href="#controller-module" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="piclap.Controller">
-<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Controller</code><a class="reference internal" href="_modules/piclap/_controller.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller" title="Permalink to this definition">¶</a></dt>
-<dd><p>Describes methods which uses Raspberry Pi GPIO module to control the pins on Raspberry Pi.</p>
+<dd><p>Update the method for detecting clap</p>
 <dl class="field-list simple">
-<dt class="field-odd">Variables</dt>
-<dd class="field-odd"><p><strong>gpio</strong> (object: <cite>RPi.GPIO</cite>) – Hold the <cite>RPi.GPIO</cite> module</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<em>dict</em>) – A dict type parameter which defines a clap detection method</p>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="piclap.Controller.cleanup">
-<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.cleanup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="piclap.Controller.flashLight">
-<code class="sig-name descname">flashLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.flashLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.flashLight" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="piclap.Controller.toggleLight">
-<code class="sig-name descname">toggleLight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pin</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_controller.html#Controller.toggleLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Controller.toggleLight" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -323,30 +381,97 @@
 <dl class="py class">
 <dt id="piclap.SignalProcessor">
 <em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">SignalProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<dd><p>Describes all the signal processing algorithms and selector method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (class: <cite>Munch</cite>) – An object that contain the configuration and details of which algorithm to be used for processing the data received.</p>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#piclap.SignalProcessor.alg_id" title="piclap.SignalProcessor.alg_id"><strong>alg_id</strong></a> (<em>int</em>) – Stores the ID of the algorithm used</p></li>
+<li><p><a class="reference internal" href="#piclap.SignalProcessor.algorithm" title="piclap.SignalProcessor.algorithm"><strong>algorithm</strong></a> (class: <cite>Munch</cite>) – Stores the configuration of the algorithm used</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="piclap.SignalProcessor.alg_id">
+<code class="sig-name descname">alg_id</code><a class="headerlink" href="#piclap.SignalProcessor.alg_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Search for the algorithm name in the <code class="docutils literal notranslate"><span class="pre">DETECTION_ALGORITHMS</span></code> and store the id found</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.SignalProcessor.algorithm">
+<code class="sig-name descname">algorithm</code><a class="headerlink" href="#piclap.SignalProcessor.algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>The algorithm stored in this variable is used throughout the execution</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="piclap.SignalProcessor.findClap">
 <code class="sig-name descname">findClap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.findClap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.findClap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Based on the detection algorithm selected, the data is given to the selected algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>bytearray</em>) – Binary data received from microphone</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if clap is detected, <cite>False</cite> otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.SignalProcessor.useFFT">
-<code class="sig-name descname">useFFT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useFFT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useFFT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">useFFT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byte_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useFFT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useFFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>This algorithm is not implemented yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>byte_stream</strong> (<em>bytearray</em>) – Binary stream of data received from microphone</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.SignalProcessor.useFiter">
-<code class="sig-name descname">useFiter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useFiter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useFiter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">useFiter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byte_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useFiter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useFiter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This algorithm is not implemented yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>byte_stream</strong> (<em>bytearray</em>) – Binary stream of data received from microphone</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.SignalProcessor.useThreshold">
-<code class="sig-name descname">useThreshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useThreshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useThreshold" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">useThreshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byte_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useThreshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>This algorithm uses a threshold value to detect claps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>byte_stream</strong> (<em>bytearray</em>) – Binary stream of data received from microphone</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>When the maximum value of the integer array is greater than threshold, it returns <cite>True</cite> and <cite>False</cite> if otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="piclap.SignalProcessor.useWavelets">
-<code class="sig-name descname">useWavelets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bit_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useWavelets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useWavelets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">useWavelets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byte_stream</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_processor.html#SignalProcessor.useWavelets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.SignalProcessor.useWavelets" title="Permalink to this definition">¶</a></dt>
+<dd><p>This algorithm is not implemented yet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>byte_stream</strong> (<em>bytearray</em>) – Binary stream of data received from microphone</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
