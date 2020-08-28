@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>piclap._settings &mdash; Pi Clap 1.3 documentation</title>
+  <title>piclap._settings &mdash; Pi Clap 1.3.1 documentation</title>
   
 
   
@@ -166,28 +166,22 @@
 
 
 <div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../piclap.html#piclap.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;This class describes all the configurations needed for the :class:`piclap.Listener` to work.</span>
+    <span class="sd">&quot;&quot;&quot;This class describes all the configurations needed for the :class:`Listener` to work.</span>
 
-<span class="sd">    :param controller: A :class:`piclap.Controller` object, defaults to None</span>
-<span class="sd">    :type controller: class: `piclap.Controller`</span>
-<span class="sd">    :var controller: Holds the controller object passed as argument</span>
-<span class="sd">    :vartype controller: class: `piclap.Controller`</span>
-<span class="sd">    :var boolean exit: Holds the controller object passed as argument</span>
-<span class="sd">    :var int rate: Holds the controller object passed as argument</span>
-<span class="sd">    :var int channels: Holds the controller object passed as argument</span>
-<span class="sd">    :var int chunk_size: Holds the controller object passed as argument</span>
-<span class="sd">    :var float interval: Holds the controller object passed as argument</span>
+<span class="sd">    :var boolean exit: Exit flag the determine the exit state of :class:`Listener`</span>
+<span class="sd">    :var int rate: Bitrate at which input audio is streamed</span>
+<span class="sd">    :var int channels: Number of audio channels used by :class:`Listener`</span>
+<span class="sd">    :var int chunk_size: Frame count inside the audio buffer</span>
+<span class="sd">    :var float interval: Clap interval in seconds</span>
 
-<span class="sd">    :var method: Holds the controller object passed as argument</span>
-<span class="sd">    :vartype method: class: `piclap.Controller`</span>
-<span class="sd">    :var actions: Holds the controller object passed as argument</span>
-<span class="sd">    :vartype actions: class: `piclap.Controller`</span>
+<span class="sd">    :var method: The algorithm used for the detection of claps</span>
+<span class="sd">    :vartype method: class: `Munch`</span>
+<span class="sd">    :var actions: Collection of defined actions</span>
+<span class="sd">    :vartype actions: list(str)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">controller</span>  <span class="c1"># Updated docs</span>
-        <span class="sd">&quot;&quot;&quot;If the :attr:`controller` parameter is ``None``, an object of :class:`piclap.Controller` is assigned&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exit</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="sd">&quot;&quot;&quot;**default:** ``False``</span>
 
@@ -208,7 +202,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="mf">0.5</span>
         <span class="sd">&quot;&quot;&quot;**default:** ``0.5``</span>
 
-<span class="sd">        Time duration to wait inside :meth:`piclap.Listener.clapWait()`&quot;&quot;&quot;</span>
+<span class="sd">        Time duration to wait inside :meth:`Listener.clapWait()`&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">Objectify</span><span class="o">.</span><span class="n">fromDict</span><span class="p">({</span>
             <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;threshold&#39;</span><span class="p">,</span>
             <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">7000</span>
@@ -220,17 +214,15 @@
             <span class="s1">&#39;on&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;Claps&#39;</span><span class="p">)]</span>
         <span class="sd">&quot;&quot;&quot;When the class initialised, it collects all the actions defined inside this class as well as any classes where are derived with this class as base class</span>
 
-<span class="sd">        **Condition:** __The method name defined should start with &#39;on&#39; and end with &#39;Claps&#39; with the clap count inbetween them.__</span>
+<span class="sd">        **Condition:** *The method name defined should start with &#39;on&#39; and end with &#39;Claps&#39; with the clap count inbetween them.*</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Settings.on2Claps"><a class="viewcode-back" href="../../piclap.html#piclap.Settings.on2Claps">[docs]</a>    <span class="k">def</span> <span class="nf">on2Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Action performed when 2 claps are detected. As default, it call the method :meth:`piclap.Controller.flashLight` on pin 13&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">flashLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Action performed when 2 claps are detected. As default, it call the method :meth:`Controller.flashLight` on pin 13&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Flashed light&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Settings.on3Claps"><a class="viewcode-back" href="../../piclap.html#piclap.Settings.on3Claps">[docs]</a>    <span class="k">def</span> <span class="nf">on3Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Action performed when 3 claps are detected. As default, it call the method :meth:`piclap.Controller.toggleLight` on pin 24&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">toggleLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Action performed when 3 claps are detected. As default, it call the method :meth:`Controller.toggleLight` on pin 24&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Toggled light&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Settings.on4Claps"><a class="viewcode-back" href="../../piclap.html#piclap.Settings.on4Claps">[docs]</a>    <span class="k">def</span> <span class="nf">on4Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
