@@ -11,7 +11,7 @@ def getSettings():
     config.customPin = 13
     return config
 
-def test():
+def test_updating():
     old_config = Settings()
     new_config = getSettings()
     assert new_config.chunk_size != old_config.chunk_size, 'Chunk Size not changed'
@@ -19,4 +19,4 @@ def test():
     assert new_config.customPin != None, 'Custom Pin not set'
 
 if __name__ == '__main__':
-    test()
+    test_updating()

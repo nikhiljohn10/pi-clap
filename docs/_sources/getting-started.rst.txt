@@ -72,30 +72,22 @@ Using Pip package
 Example code
 ------------
 
-.. code-block::
+Writing an app using Pi Clap is only 3 lines it need ideally.
 
-    from piclap import Listener, Settings
+.. literalinclude:: ../../example/app.py
+   :language: python
+   :linenos:
 
+But this is not the real world senario. You will need more control over the settings that match your microphone and operating system. Following code give your more flexibility.
 
-    class Config(Settings):
-    	'''This is an user defined derived class with `piclap.Settings` as base class'''
+.. literalinclude:: ../../example/advanced.app.py
+   :language: python
+   :emphasize-lines: 6-23,26-28,32-33
+   :linenos:
 
-        def __init__(self):
-            '''Defines new and override existing properties here'''
-            self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
-            self.interval = 0.5         # Adjust interval between claps
-            self.method.value = 300		# Threshold value adjustment
+If you are using **Raspberry Pi**, use following code:
 
-        def on2Claps(self):
-            '''Custom action for 2 claps'''
-            print("Light flashed on pin", 4)
-
-        def on3Claps(self):
-            '''Custom action for 3 claps'''
-            print("Light toggled on pin", 6)
-
-    config = Config()
-    listener = Listener(config)
-    listener.start()
-
-If you are using **Raspberry Pi**, use the extended version of this example: `app.py <https://github.com/nikhiljohn10/pi-clap/blob/master/example/app.py>`_
+.. literalinclude:: ../../example/rpi.app.py
+  :language: python
+  :emphasize-lines: 4,7-20,30,37-38,43,45-47
+  :linenos:

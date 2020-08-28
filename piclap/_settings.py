@@ -2,28 +2,22 @@ from munch import DefaultMunch as Objectify
 
 
 class Settings:
-    """This class describes all the configurations needed for the :class:`piclap.Listener` to work.
+    """This class describes all the configurations needed for the :class:`Listener` to work.
 
-    :param controller: A :class:`piclap.Controller` object, defaults to None
-    :type controller: class: `piclap.Controller`
-    :var controller: Holds the controller object passed as argument
-    :vartype controller: class: `piclap.Controller`
-    :var boolean exit: Holds the controller object passed as argument
-    :var int rate: Holds the controller object passed as argument
-    :var int channels: Holds the controller object passed as argument
-    :var int chunk_size: Holds the controller object passed as argument
-    :var float interval: Holds the controller object passed as argument
+    :var boolean exit: Exit flag the determine the exit state of :class:`Listener`
+    :var int rate: Bitrate at which input audio is streamed
+    :var int channels: Number of audio channels used by :class:`Listener`
+    :var int chunk_size: Frame count inside the audio buffer
+    :var float interval: Clap interval in seconds
 
-    :var method: Holds the controller object passed as argument
-    :vartype method: class: `piclap.Controller`
-    :var actions: Holds the controller object passed as argument
-    :vartype actions: class: `piclap.Controller`
+    :var method: The algorithm used for the detection of claps
+    :vartype method: class: `Munch`
+    :var actions: Collection of defined actions
+    :vartype actions: list(str)
     """
 
-    def __init__(self, controller=None):
+    def __init__(self):
         """Constructor method"""
-        self.controller = controller  # Updated docs
-        """If the :attr:`controller` parameter is ``None``, an object of :class:`piclap.Controller` is assigned"""
         self.exit = False
         """**default:** ``False``
 
@@ -44,7 +38,7 @@ class Settings:
         self.interval = 0.5
         """**default:** ``0.5``
 
-        Time duration to wait inside :meth:`piclap.Listener.clapWait()`"""
+        Time duration to wait inside :meth:`Listener.clapWait()`"""
         self.method = Objectify.fromDict({
             'name': 'threshold',
             'value': 7000
@@ -56,17 +50,15 @@ class Settings:
             'on') and m.endswith('Claps')]
         """When the class initialised, it collects all the actions defined inside this class as well as any classes where are derived with this class as base class
 
-        **Condition:** __The method name defined should start with 'on' and end with 'Claps' with the clap count inbetween them.__
+        **Condition:** *The method name defined should start with 'on' and end with 'Claps' with the clap count inbetween them.*
         """
 
     def on2Claps(self):
-        """Action performed when 2 claps are detected. As default, it call the method :meth:`piclap.Controller.flashLight` on pin 13"""
-        self.pi.flashLight(pin=13)
+        """Action performed when 2 claps are detected. As default, it call the method :meth:`Controller.flashLight` on pin 13"""
         print("Flashed light")
 
     def on3Claps(self):
-        """Action performed when 3 claps are detected. As default, it call the method :meth:`piclap.Controller.toggleLight` on pin 24"""
-        self.pi.toggleLight(pin=24)
+        """Action performed when 3 claps are detected. As default, it call the method :meth:`Controller.toggleLight` on pin 24"""
         print("Toggled light")
 
     def on4Claps(self):

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; Pi Clap 1.3 documentation</title>
+  <title>Documentation &mdash; Pi Clap 1.3.1 documentation</title>
   
 
   
@@ -270,22 +270,18 @@
 <h2>Settings Module<a class="headerlink" href="#settings-module" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="piclap.Settings">
-<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Settings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">controller</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class describes all the configurations needed for the <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Listener</span></code></a> to work.</p>
+<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Settings</code><a class="reference internal" href="_modules/piclap/_settings.html#Settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class describes all the configurations needed for the <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">Listener</span></code></a> to work.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>controller</strong> (class: <cite>piclap.Controller</cite>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Controller</span></code> object, defaults to None</p>
-</dd>
-<dt class="field-even">Variables</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="#piclap.Settings.controller" title="piclap.Settings.controller"><strong>controller</strong></a> (class: <cite>piclap.Controller</cite>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.exit" title="piclap.Settings.exit"><strong>exit</strong></a> (<em>boolean</em>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.rate" title="piclap.Settings.rate"><strong>rate</strong></a> (<em>int</em>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.channels" title="piclap.Settings.channels"><strong>channels</strong></a> (<em>int</em>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.chunk_size" title="piclap.Settings.chunk_size"><strong>chunk_size</strong></a> (<em>int</em>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.interval" title="piclap.Settings.interval"><strong>interval</strong></a> (<em>float</em>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.method" title="piclap.Settings.method"><strong>method</strong></a> (class: <cite>piclap.Controller</cite>) – Holds the controller object passed as argument</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.actions" title="piclap.Settings.actions"><strong>actions</strong></a> (class: <cite>piclap.Controller</cite>) – Holds the controller object passed as argument</p></li>
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#piclap.Settings.exit" title="piclap.Settings.exit"><strong>exit</strong></a> (<em>boolean</em>) – Exit flag the determine the exit state of <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">Listener</span></code></a></p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.rate" title="piclap.Settings.rate"><strong>rate</strong></a> (<em>int</em>) – Bitrate at which input audio is streamed</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.channels" title="piclap.Settings.channels"><strong>channels</strong></a> (<em>int</em>) – Number of audio channels used by <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">Listener</span></code></a></p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.chunk_size" title="piclap.Settings.chunk_size"><strong>chunk_size</strong></a> (<em>int</em>) – Frame count inside the audio buffer</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.interval" title="piclap.Settings.interval"><strong>interval</strong></a> (<em>float</em>) – Clap interval in seconds</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.method" title="piclap.Settings.method"><strong>method</strong></a> (class: <cite>Munch</cite>) – The algorithm used for the detection of claps</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.actions" title="piclap.Settings.actions"><strong>actions</strong></a> (<em>list</em><em>(</em><em>str</em><em>)</em>) – Collection of defined actions</p></li>
 </ul>
 </dd>
 </dl>
@@ -293,7 +289,7 @@
 <dt id="piclap.Settings.actions">
 <code class="sig-name descname">actions</code><a class="headerlink" href="#piclap.Settings.actions" title="Permalink to this definition">¶</a></dt>
 <dd><p>When the class initialised, it collects all the actions defined inside this class as well as any classes where are derived with this class as base class</p>
-<p><strong>Condition:</strong> __The method name defined should start with ‘on’ and end with ‘Claps’ with the clap count inbetween them.__</p>
+<p><strong>Condition:</strong> <em>The method name defined should start with ‘on’ and end with ‘Claps’ with the clap count inbetween them.</em></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -311,12 +307,6 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="piclap.Settings.controller">
-<code class="sig-name descname">controller</code><a class="headerlink" href="#piclap.Settings.controller" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the <a class="reference internal" href="#piclap.Settings.controller" title="piclap.Settings.controller"><code class="xref py py-attr docutils literal notranslate"><span class="pre">controller</span></code></a> parameter is <code class="docutils literal notranslate"><span class="pre">None</span></code>, an object of <code class="xref py py-class docutils literal notranslate"><span class="pre">piclap.Controller</span></code> is assigned</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt id="piclap.Settings.exit">
 <code class="sig-name descname">exit</code><a class="headerlink" href="#piclap.Settings.exit" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
@@ -327,7 +317,7 @@
 <dt id="piclap.Settings.interval">
 <code class="sig-name descname">interval</code><a class="headerlink" href="#piclap.Settings.interval" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">0.5</span></code></p>
-<p>Time duration to wait inside <a class="reference internal" href="#piclap.Listener.clapWait" title="piclap.Listener.clapWait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">piclap.Listener.clapWait()</span></code></a></p>
+<p>Time duration to wait inside <a class="reference internal" href="#piclap.Listener.clapWait" title="piclap.Listener.clapWait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Listener.clapWait()</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -340,13 +330,13 @@
 <dl class="py method">
 <dt id="piclap.Settings.on2Claps">
 <code class="sig-name descname">on2Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on2Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on2Claps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Action performed when 2 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">piclap.Controller.flashLight()</span></code> on pin 13</p>
+<dd><p>Action performed when 2 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">Controller.flashLight()</span></code> on pin 13</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Settings.on3Claps">
 <code class="sig-name descname">on3Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on3Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on3Claps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Action performed when 3 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">piclap.Controller.toggleLight()</span></code> on pin 24</p>
+<dd><p>Action performed when 3 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">Controller.toggleLight()</span></code> on pin 24</p>
 </dd></dl>
 
 <dl class="py method">
