@@ -19,6 +19,7 @@ Contents
 
   getting-started
   piclap
+  rpi
 
 .. toctree::
   :caption: Links

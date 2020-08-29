@@ -13,71 +13,15 @@ A python package for clap detection
 
 **Platforms Supported:** *Raspberry Pi, Linux, MacOS*
 
-### Hardware Requirements
 
- * Raspberry Pi
- * Microphone [5]
- * Audio Card [5]
- * Bread Board (optional)
+## Visit Official documentation @ [pi-clap.nikz.in](https://pi-clap.nikz.in/getting-started.html)
 
-### Dependencies
+## Development
 
-**Python 3**
 
- * gpiozero
- * pyaudio ( PortAudio is needed )
- * [munch](https://github.com/Infinidat/munch)
 
-**Other**
 
- * Rasbian OS [3]
- * Audio Driver [1],[2],[3]
-
-### Setting up Raspberry Pi
-
-1. [Download Raspbian OS](http://www.raspberrypi.org/downloads/)
-2. Install Raspbian OS in RPi [4]
-3. Plugin the USB input audio device(Audio Card or Microphone)
-4. Configure OS after OS bootup [6] `sudo raspi-config`
-5. Update OS `sudo apt-get update && sudo apt-get upgrade -y`
-6. Reboot `sudo reboot` (This should enable the audio driver for the device connected)
-7. Install pip & portaudio module `sudo apt-get install -y python3-pip portaudio19-dev`
-8. Install pi-clap pip module `pip3 install pi-clap`
-9. Connect the output line to BCM #4 & #6 Pin on Raspberry Pi.
-
-( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )
-
-##### Visit Official documentation @ [pi-clap.nikz.in](https://pi-clap.nikz.in/getting-started.html)
 
 ### License
 
 **[MIT License](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)**
-
-Copyright (c) 2020 Nikhil John
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-### References
-
- 1. https://learn.adafruit.com/usb-audio-cards-with-a-raspberry-pi/instructions
- 2. http://computers.tutsplus.com/articles/using-a-usb-audio-device-with-a-raspberry-pi--mac-55876
- 3. http://forum.kodi.tv/showthread.php?tid=172072
- 4. http://www.raspberrypi.org/documentation/installation/installing-images/
- 5. https://raspberrytips.com/add-microphone-raspberry-pi/
- 6. https://www.raspberrypi.org/documentation/configuration/

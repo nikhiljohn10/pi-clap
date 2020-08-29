@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Pi Clap 1.3.1 documentation</title>
+  <title>Raspberry Pi Tutorial &mdash; Pi Clap 1.3.1 documentation</title>
   
 
   
@@ -35,7 +35,9 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Index" href="genindex.html" />
+    <link rel="prev" title="Documentation" href="piclap.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,10 +90,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="piclap.html">Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rpi.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Raspberry Pi Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Links</span></p>
 <ul>
@@ -145,13 +151,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Raspberry Pi Tutorial</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/license.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/rpi.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,28 +170,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p><strong>MIT License</strong></p>
-<i>Copyright &copy; 2020 Nikhil John</i><br><br><p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+  <div class="section" id="raspberry-pi-tutorial">
+<h1>Raspberry Pi Tutorial<a class="headerlink" href="#raspberry-pi-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hardware-requirements">
+<h2>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Raspberry Pi</p></li>
+<li><p>Microphone</p></li>
+<li><p>Audio Card (Not needed if microphone is connected via USB)</p></li>
+<li><p>Bread Board</p></li>
+<li><p>LED x 2</p></li>
+<li><p>100 ohm Resistor x 2</p></li>
+<li><p>Jumper wires</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/pi_circuit.png"><img alt="Raspberry Pi Circuit" src="_images/pi_circuit.png" style="width: 600px;" /></a>
+</div></blockquote>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p><strong>Python 3</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>gpiozero</p></li>
+<li><p>PyAudio (PortAudio is needed)</p></li>
+<li><p>Munch</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Other</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Rasbian OS [3]</p></li>
+<li><p>Audio Driver [1],[2],[3]</p></li>
+</ul>
+</div></blockquote>
+<p>### Setting up Raspberry Pi</p>
+<ol class="arabic simple">
+<li><p>[Download Raspbian OS](<a class="reference external" href="http://www.raspberrypi.org/downloads/">http://www.raspberrypi.org/downloads/</a>)</p></li>
+<li><p>Install Raspbian OS in RPi [4]</p></li>
+<li><p>Plugin the USB input audio device(Audio Card or Microphone)</p></li>
+<li><p>Configure OS after OS bootup [6] <cite>sudo raspi-config</cite></p></li>
+<li><p>Update OS <cite>sudo apt-get update &amp;&amp; sudo apt-get upgrade -y</cite></p></li>
+<li><p>Reboot <cite>sudo reboot</cite> (This should enable the audio driver for the device connected)</p></li>
+<li><p>Install pip &amp; portaudio module <cite>sudo apt-get install -y python3-pip portaudio19-dev</cite></p></li>
+<li><p>Install pi-clap pip module <cite>pip3 install pi-clap</cite></p></li>
+<li><p>Connect the output line to BCM #4 &amp; #6 Pin on Raspberry Pi.</p></li>
+</ol>
+<p>( Try 2 claps to activate the output line for 1 sec and 3 claps to toggle ON/OFF state of given PIN. Note: Use 4 claps to exit from the system )</p>
+</div>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="genindex.html" class="btn btn-neutral float-right" title="Index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="piclap.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
