@@ -32,7 +32,7 @@ Contents
 
 
 Platforms Supported
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 * Raspberry Pi
 * Linux
