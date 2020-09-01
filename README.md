@@ -4,24 +4,58 @@ pi-clap
 [![Python package](https://github.com/nikhiljohn10/pi-clap/workflows/Python%20package/badge.svg?branch=master)](https://pypi.python.org/pypi/pi-clap/)
 [![Latest Version](https://img.shields.io/pypi/v/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
-[![Dependencies](https://img.shields.io/badge/deps-portaudio%2C%20pyaudio%2C%20munch-informational)](https://pypi.python.org/pypi/pi-clap/)
 [![Code Size](https://img.shields.io/github/languages/code-size/nikhiljohn10/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![Downloads](https://img.shields.io/pypi/dm/pi-clap)](https://pypi.python.org/pypi/pi-clap/)
 [![License](https://img.shields.io/pypi/l/pi-clap)](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
 
 A python package for clap detection
 
-**Platforms Supported:** *Raspberry Pi, Linux, MacOS*
+Visit Official documentation @ [pi-clap.nikz.in](https://pi-clap.nikz.in/getting-started.html)
 
+### Platforms Supported
 
-## Visit Official documentation @ [pi-clap.nikz.in](https://pi-clap.nikz.in/getting-started.html)
+* Raspberry Pi
+* Linux
+* MacOS
 
-## Development
+### Hardware Requirements
 
+* Raspberry Pi (optional)
+* Bread Board (optional)
+* Microphone
+* Audio Card (Needed for analog microphones with a jack)
 
+### Dependencies
 
+* [Python 3.6+](https://docs.python.org/3/)
+* [PortAudio](http://www.portaudio.com/) (Need to be installed manually)
+* [gpiozero](https://gpiozero.readthedocs.io)
+* [PyAudio](https://pypi.org/project/PyAudio)
+* [Munch](https://pypi.org/project/munch/)
+* Audio Driver (Automatically loaded by OS after a restart)
 
+### Upcoming features
+
+* Adding advanced clap detection algorithms
+* Adding support for automation platforms like Amazon Alexa, Google Home, IFTTT etc.
+* Adding auto calibration for microphone
+
+### Development
+
+```
+git clone https://github.com/nikhiljohn10/pi-clap
+cd pi-clap
+make help # Display the possible options available
+```
+
+Version number is pulled from `piclap/__init__.py`
+
+- Package - /piclap
+- Examples - /example
+- Documentation - /docs/source
+- Test Cases - /test
+- Github Actions - /.github/workflows
 
 ### License
 
-**[MIT License](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)**
+[MIT License](https://github.com/nikhiljohn10/pi-clap/blob/master/LICENSE)
