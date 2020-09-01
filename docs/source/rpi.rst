@@ -29,10 +29,12 @@ Setting up Raspberry Pi
 4. Turn on the power and let the OS bootup
 5. Use username: ``pi`` and password: ``raspberry`` to login
 6. Use ``sudo raspi-config`` to configure
+
 	* Change password
 	* Enable SSH
 	* Enable any interface options as needed
 	* Expand the filesystem ( Advance optoins > Expand filesystem)
+  
 7. Update system using ``sudo apt-get update && sudo apt-get upgrade -y``
 
 Now you are updated and ready to use via SSH from different computer. Now you can disconnect monitor and keyboard if you want to use SSH.
