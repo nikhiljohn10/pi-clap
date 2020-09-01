@@ -19,6 +19,7 @@ Contents
 
   getting-started
   piclap
+  rpi
 
 .. toctree::
   :caption: Links
@@ -61,17 +62,9 @@ Upcoming features
 
 * Adding advanced clap detection algorithms
 * Adding support for automation platforms like Amazon Alexa, Google Home, IFTTT etc.
+* Adding auto calibration for microphone
 
 License
 ^^^^^^^
 
 .. include:: license.rst
-
-References
-^^^^^^^^^^
-
-1. https://raspberrytips.com/add-microphone-raspberry-pi/
-2. https://www.raspberrypi.org/documentation/configuration/
-3. http://www.raspberrypi.org/documentation/installation/installing-images/
-4. https://learn.adafruit.com/usb-audio-cards-with-a-raspberry-pi/instructions
-5. http://computers.tutsplus.com/articles/using-a-usb-audio-device-with-a-raspberry-pi--mac-55876

@@ -84,10 +84,3 @@ But this is not the real world senario. You will need more control over the sett
    :language: python
    :emphasize-lines: 6-23,26-28,32-33
    :linenos:
-
-If you are using **Raspberry Pi**, use following code:
-
-.. literalinclude:: ../../example/rpi.app.py
-  :language: python
-  :emphasize-lines: 4,7-20,30,37-38,43,45-47
-  :linenos:
