@@ -32,11 +32,11 @@ class Config(Settings):
         self.controller = PiController()
         self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
         self.interval = 0.5         # Adjust interval between claps
-        self.method.value = 10000   # Threshold value adjustment
+        self.method.value = 600   # Threshold value adjustment
 
     def on2Claps(self):
         '''Custom action for 2 claps'''
-        led12.blink(n=1)
+        self.led12.blink(n=1)
         print("Light flashed on pin 4")
 
     def on3Claps(self):
