@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; Pi Clap 1.3.1 documentation</title>
+  <title>Getting Started &mdash; pi-clap 1.3.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Documentation" href="piclap.html" />
-    <link rel="prev" title="Welcome to Pi Clap" href="index.html" /> 
+    <link rel="prev" title="Welcome to pi-clap" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pi Clap
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pi-clap
           
 
           
@@ -100,8 +100,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#using-git-clone">Using Git Clone</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#using-pip-package">Using Pip package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-git">Using Git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-pip">Using Pip</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#example-code">Example code</a></li>
@@ -131,7 +131,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Pi Clap</a>
+          <a href="index.html">pi-clap</a>
         
       </nav>
 
@@ -201,8 +201,8 @@ sudo dnf install -y python3-pip portaudio-devel redhat-rpm-config
 </div>
 <div class="section" id="centos">
 <h3>Centos<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># CentOS 8s</span>
-udo dnf upgrade --refresh
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># CentOS 8</span>
+sudo dnf upgrade --refresh
 sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
 <span class="c1"># CentOS 7</span>
@@ -220,23 +220,23 @@ sudo yum install -y python37-pip portaudio portaudio-devel
 <div class="section" id="macos">
 <h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>brew install python3 portaudio
-pip3 install pyaudio munch <span class="o">||</span> pip3 install --global-option<span class="o">=</span><span class="s1">&#39;build_ext&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-I/usr/local/include&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-L/usr/local/lib&#39;</span> pyaudio munch
+python3 -m pip install pyaudio <span class="o">||</span> python3 -m pip install --global-option<span class="o">=</span><span class="s1">&#39;build_ext&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-I/usr/local/include&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-L/usr/local/lib&#39;</span> pyaudio
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="using-git-clone">
-<h3>Using Git Clone<a class="headerlink" href="#using-git-clone" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-git">
+<h3>Using Git<a class="headerlink" href="#using-git" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nikhiljohn10/pi-clap
 <span class="nb">cd</span> pi-clap
 make run
 </pre></div>
 </div>
 </div>
-<div class="section" id="using-pip-package">
-<h3>Using Pip package<a class="headerlink" href="#using-pip-package" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-pip">
+<h3>Using Pip<a class="headerlink" href="#using-pip" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip3 install pi-clap
 </pre></div>
 </div>
@@ -245,7 +245,7 @@ make run
 </div>
 <div class="section" id="example-code">
 <h2>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
-<p>Writing an app using Pi Clap is only 3 lines it need ideally.</p>
+<p>Writing an app using pi-clap is only 3 lines it need ideally.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -341,7 +341,7 @@ make run
         <a href="piclap.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Pi Clap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pi-clap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

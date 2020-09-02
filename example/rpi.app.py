@@ -8,6 +8,7 @@ class PiController:
     '''Describes the controller methods which are usually used while connected
     to a raspberry pi controller using the module `gpiozero`.
     '''
+
     def __init__(self):
         self.led12 = LED(12)
         self.led24 = LED(24)
