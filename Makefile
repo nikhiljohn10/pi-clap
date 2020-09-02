@@ -43,7 +43,7 @@ test: setup
 run: setup
 	@python3 ./example/advanced.app.py
 
-clean-build:
+clean-build: remove
 	@rm -rf build/
 	@rm -rf dist/
 	@rm -rf *.egg-info
@@ -99,6 +99,7 @@ docs-html: docs-clean
 	test
 	version
 	setup
+	remove
 	clean
 	build
 	publish
