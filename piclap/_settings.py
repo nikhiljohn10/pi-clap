@@ -35,13 +35,13 @@ class Settings:
         """**default:** ``1024``
 
         Number of frames in the input audio buffer"""
-        self.interval = 0.5
-        """**default:** ``0.5``
+        self.interval = 1.0
+        """**default:** ``1.0``
 
         Time duration to wait inside :meth:`Listener.clapWait()`"""
         self.method = Objectify.fromDict({
             'name': 'threshold',
-            'value': 7000
+            'value': 512
         }, False)
         """**default:** :code:`{'name': 'threshold','value': 7000}`
 

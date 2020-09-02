@@ -25,8 +25,8 @@ Centos
 
 .. code-block:: sh
 
-    # CentOS 8s
-    udo dnf upgrade --refresh
+    # CentOS 8
+    sudo dnf upgrade --refresh
     sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
     # CentOS 7
@@ -45,13 +45,13 @@ MacOS
 .. code-block:: sh
 
     brew install python3 portaudio
-    pip3 install pyaudio munch || pip3 install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio munch
+    python3 -m pip install pyaudio || python3 -m pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
 
 Installation
 ------------
 
-Using Git Clone
-^^^^^^^^^^^^^^^
+Using Git
+^^^^^^^^^
 
 .. code-block:: sh
 
@@ -59,8 +59,8 @@ Using Git Clone
     cd pi-clap
     make run
 
-Using Pip package
-^^^^^^^^^^^^^^^^^
+Using Pip
+^^^^^^^^^
 
 .. code-block:: sh
 
@@ -72,7 +72,7 @@ Using Pip package
 Example code
 ------------
 
-Writing an app using Pi Clap is only 3 lines it need ideally.
+Writing an app using pi-clap is only 3 lines it need ideally.
 
 .. literalinclude:: ../../example/app.py
    :language: python

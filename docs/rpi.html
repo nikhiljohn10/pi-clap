@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Raspberry Pi Tutorial &mdash; Pi Clap 1.3.1 documentation</title>
+  <title>Raspberry Pi Tutorial &mdash; pi-clap 1.3.1 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Pi Clap
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pi-clap
           
 
           
@@ -97,8 +97,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#hardware-requirements">Hardware Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-raspberry-pi">Setting up Raspberry Pi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-pi-clap">Using Pi Clap</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-wire-up-for-pi-clap">How to wire up for Pi Clap?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-pi-clap">Using pi-clap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-wire-up-for-pi-clap">How to wire up for pi-clap?</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
@@ -126,7 +126,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Pi Clap</a>
+          <a href="index.html">pi-clap</a>
         
       </nav>
 
@@ -193,10 +193,23 @@
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Python 3.6+</p></li>
-<li><p>gpiozero</p></li>
-<li><p>PyAudio (PortAudio is needed)</p></li>
-<li><p>Munch</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/">Python 3.6+</a></p></li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://gpiozero.readthedocs.io">gpiozero</a></dt><dd><ul>
+<li><p><a class="reference external" href="https://pypi.org/project/RPi.GPIO">RPi.GPIO</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://pypi.org/project/PyAudio">PyAudio</a></dt><dd><ul>
+<li><p><a class="reference external" href="http://www.portaudio.com/">PortAudio</a></p></li>
+<li><p>Audio Driver</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><a class="reference external" href="https://pypi.org/project/munch/">Munch</a></p></li>
 </ul>
 </div>
 <div class="section" id="setting-up-raspberry-pi">
@@ -222,24 +235,24 @@
 <p>Now you are updated and ready to use via SSH from different computer. Now you can disconnect monitor and keyboard if you want to use SSH.</p>
 </div>
 <div class="section" id="using-pi-clap">
-<h2>Using Pi Clap<a class="headerlink" href="#using-pi-clap" title="Permalink to this headline">¶</a></h2>
+<h2>Using pi-clap<a class="headerlink" href="#using-pi-clap" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pi_circuit.png"><img alt="Raspberry Pi Circuit" src="_images/pi_circuit.png" style="width: 600px;" /></a>
 </div></blockquote>
 <div class="section" id="how-to-wire-up-for-pi-clap">
-<h3>How to wire up for Pi Clap?<a class="headerlink" href="#how-to-wire-up-for-pi-clap" title="Permalink to this headline">¶</a></h3>
+<h3>How to wire up for pi-clap?<a class="headerlink" href="#how-to-wire-up-for-pi-clap" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Connect <code class="docutils literal notranslate"><span class="pre">Ground</span> <span class="pre">Pin(6)</span></code> to breadboard’s sideline</p></li>
 <li><p>Connect one Red LED and 100ohm Resistor in serial with LED’s positive ends</p></li>
 <li><p>Connect negative ends of LEDs to grounded sideline</p></li>
-<li><p>Connect the Resisters to GPIO 12 &amp; 24 Pins on Raspberry Pi as in the circuit diagram</p></li>
+<li><p>Connect the Resisters on breadboard to <code class="docutils literal notranslate"><span class="pre">GPIO</span> <span class="pre">12</span> <span class="pre">Pin</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">GPIO</span> <span class="pre">24</span> <span class="pre">Pin</span></code> on Raspberry Pi as in the circuit diagram</p></li>
 <li><p>Plugin the USB input audio device(Audio Card or Microphone)</p></li>
 <li><p>Reboot the OS with <cite>sudo reboot</cite> (This should load the audio driver automatically in most cases for the device connected)</p></li>
 <li><p>Install pip &amp; portaudio module <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">python3-pip</span> <span class="pre">portaudio19-dev</span></code></p></li>
 <li><p>Install pi-clap pip module <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pi-clap</span></code></p></li>
 </ol>
-<p>Now the Raspberry Pi is ready use Pi Clap</p>
-<p>Use following code for Pi Clap to start listening. Make the necessary adjustments in the code and values to match your microphone and pinout. You can also add more methods in the derived classes.</p>
+<p>Now the Raspberry Pi is ready use pi-clap</p>
+<p>Use following code for pi-clap to start listening. Make the necessary adjustments in the code and values to match your microphone and pinout. You can also add more methods in the derived classes.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -296,7 +309,8 @@
 54
 55
 56
-57</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+57
+58</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
 
 <span class="kn">from</span> <span class="nn">piclap</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">gpiozero</span> <span class="kn">import</span> <span class="n">LED</span>
@@ -307,15 +321,17 @@
 <span class="sd">    to a raspberry pi controller using the module `gpiozero`.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">toggleLight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
-        <span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
-        <span class="n">led</span><span class="o">.</span><span class="n">toggle</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin&quot;</span><span class="p">,</span> <span class="n">pin</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">led12</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">led24</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">lightBlinker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
-        <span class="n">led</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light blinks&quot;</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="s2">&quot;times on pin&quot;</span><span class="p">,</span> <span class="n">pin</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">toggleLight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">led12</span><span class="o">.</span><span class="n">toggle</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin 12&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">lightBlinker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">led24</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">times</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light blinks&quot;</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="s2">&quot;times on pin 24&quot;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
@@ -332,17 +348,16 @@
 
     <span class="k">def</span> <span class="nf">on2Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Custom action for 2 claps&#39;&#39;&#39;</span>
-        <span class="n">led</span> <span class="o">=</span> <span class="n">LED</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-        <span class="n">led</span><span class="o">.</span><span class="n">blink</span><span class="p">()</span>
+        <span class="n">led12</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed on pin 4&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">on3Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Custom action from PiController for 3 claps&#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">toggleLight</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">toggleLight</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">on5Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Custom action from PiController for 5 claps&#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">lightBlinker</span><span class="p">(</span><span class="n">pin</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">lightBlinker</span><span class="p">(</span><span class="n">times</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>

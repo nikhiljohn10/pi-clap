@@ -1,6 +1,6 @@
 .. highlight::  python
 
-Welcome to Pi Clap
+Welcome to pi-clap
 ==================
 
 **A python package for clap detection**
@@ -32,7 +32,7 @@ Contents
 
 
 Platforms Supported
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 * Raspberry Pi
 * Linux
@@ -51,11 +51,10 @@ Dependencies
 ^^^^^^^^^^^^
 
 * `Python 3.6+ <https://docs.python.org/3/>`_
-* `PortAudio <http://www.portaudio.com/>`_ (Need to be installed manually)
-* `gpiozero <https://gpiozero.readthedocs.io>`_
 * `PyAudio <https://pypi.org/project/PyAudio>`_
+  * `PortAudio <http://www.portaudio.com/>`_ (Need to be installed manually)
+  * Audio Driver (Automatically loaded by OS after a restart)
 * `Munch <https://pypi.org/project/munch/>`_
-* Audio Driver (Automatically loaded by OS after a restart)
 
 Upcoming features
 ^^^^^^^^^^^^^^^^^
@@ -68,3 +67,7 @@ License
 ^^^^^^^
 
 .. include:: license.rst
+
+.. meta::
+   :description: pi-clap - A python package for clap detection
+   :keywords: pi-clap, clap detection, python package

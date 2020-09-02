@@ -12,6 +12,7 @@ help: version
 	@echo "Please use 'make <target>' where <target> is one of"
 	@echo "  version        to display package version"
 	@echo "  setup          to install development dependencies"
+	@echo "  remove         to remove development dependencies"
 	@echo "  run            to run example app"
 	@echo "  clean          to clean the build and execution temp files and directories"
 	@echo "  build          to build PyPi package"
@@ -31,13 +32,16 @@ version:
 	@echo "\t#################################\n"
 
 setup:
-	@pip3 install -Ur requirements.txt
+	@python3 -m pip install -Ur requirements.txt
+
+remove:
+	@python3 -m pip uninstall -yr requirements.txt
 
 test: setup
 	@pytest
 
 run: setup
-	@python3 ./example/app.py
+	@python3 ./example/advanced.app.py
 
 clean-build:
 	@rm -rf build/
@@ -65,13 +69,13 @@ test-publish: build
 	@make clean
 
 install: clean setup
-	@pip3 install pi-clap==$(RELEASE)
+	@python3 -m pip install pi-clap==$(RELEASE)
 
 test-install: clean setup
-	@pip3 install --index-url https://test.pypi.org/simple/ pi-clap==$(RELEASE)
+	@python3 -m pip install --index-url https://test.pypi.org/simple/ pi-clap==$(RELEASE)
 
 uninstall:
-	@pip uninstall pi-clap
+	@python3 -m pip uninstall pi-clap
 
 docs-clean:
 	@rm -rf $(DOCSDIR)/_* $(DOCSDIR)/*.* $(DOCSDIR)/.buildinfo $(DOCSRCDIR)/_build/*
