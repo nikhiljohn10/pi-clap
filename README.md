@@ -28,11 +28,12 @@ Visit Official documentation @ [pi-clap.nikz.in](https://pi-clap.nikz.in/getting
 ### Dependencies
 
 * [Python 3.6+](https://docs.python.org/3/)
-* [PortAudio](http://www.portaudio.com/) (Need to be installed manually)
 * [gpiozero](https://gpiozero.readthedocs.io)
+	* [RPi.GPIO](https://pypi.org/project/RPi.GPIO)
 * [PyAudio](https://pypi.org/project/PyAudio)
+	* [PortAudio](http://www.portaudio.com/) (Need to be installed manually)
+	* Audio Driver (Automatically loaded by OS after a restart)
 * [Munch](https://pypi.org/project/munch/)
-* Audio Driver (Automatically loaded by OS after a restart)
 
 ### Upcoming features
 

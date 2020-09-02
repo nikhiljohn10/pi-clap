@@ -24,7 +24,7 @@ except AttributeError:
 
 # -- Project information -----------------------------------------------------
 
-project = 'Pi Clap'
+project = 'pi-clap'
 copyright = '2020, Nikhil John'
 author = 'Nikhil John'
 
