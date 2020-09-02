@@ -7,7 +7,7 @@ from piclap import Settings
 def getSettings():
     config = Settings()
     config.chunk_size = 512
-    config.interval = 1
+    config.interval = 1.0
     config.customPin = 13
     return config
 
