@@ -8,10 +8,10 @@
 
 """
 from ._settings import Settings
-from ._listener import Listener
+from ._listener import Listener, Device
 from ._processor import SignalProcessor
 
 __project__ = 'pi-clap'
-__version__ = '1.3.2'
+__version__ = '1.4.0'
 __author__ = 'Nikhil John'
-__all__ = ['Settings', 'Listener', 'SignalProcessor']
+__all__ = ['Settings', 'Listener', 'Device', 'SignalProcessor']
