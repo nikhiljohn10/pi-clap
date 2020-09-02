@@ -15,10 +15,13 @@ Hardware Requirements
 Dependencies
 ------------
 
-* Python 3.6+
-* gpiozero
-* PyAudio (PortAudio is needed)
-* Munch
+* `Python 3.6+ <https://docs.python.org/3/>`_
+* `gpiozero <https://gpiozero.readthedocs.io>`_
+	* `RPi.GPIO <https://pypi.org/project/RPi.GPIO>`_
+* `PyAudio <https://pypi.org/project/PyAudio>`_
+	* `PortAudio <http://www.portaudio.com/>`_
+	* Audio Driver
+* `Munch <https://pypi.org/project/munch/>`_
 
 Setting up Raspberry Pi
 -----------------------
@@ -39,28 +42,28 @@ Setting up Raspberry Pi
 
 Now you are updated and ready to use via SSH from different computer. Now you can disconnect monitor and keyboard if you want to use SSH.
 
-Using Pi Clap
+Using pi-clap
 -------------
 
  .. image:: _static/pi_circuit.png
    :width: 600
    :alt: Raspberry Pi Circuit
 
-How to wire up for Pi Clap?
+How to wire up for pi-clap?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Connect ``Ground Pin(6)`` to breadboard's sideline
 2. Connect one Red LED and 100ohm Resistor in serial with LED's positive ends
 3. Connect negative ends of LEDs to grounded sideline
-4. Connect the Resisters to GPIO 12 & 24 Pins on Raspberry Pi as in the circuit diagram
+4. Connect the Resisters on breadboard to ``GPIO 12 Pin`` & ``GPIO 24 Pin`` on Raspberry Pi as in the circuit diagram
 5. Plugin the USB input audio device(Audio Card or Microphone)
 6. Reboot the OS with `sudo reboot` (This should load the audio driver automatically in most cases for the device connected)
 7. Install pip & portaudio module ``sudo apt-get install -y python3-pip portaudio19-dev``
 8. Install pi-clap pip module ``pip3 install pi-clap``
 
-Now the Raspberry Pi is ready use Pi Clap
+Now the Raspberry Pi is ready use pi-clap
 
-Use following code for Pi Clap to start listening. Make the necessary adjustments in the code and values to match your microphone and pinout. You can also add more methods in the derived classes.
+Use following code for pi-clap to start listening. Make the necessary adjustments in the code and values to match your microphone and pinout. You can also add more methods in the derived classes.
 
 .. literalinclude:: ../../example/rpi.app.py
   :language: python

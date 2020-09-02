@@ -8,16 +8,17 @@ class PiController:
     '''Describes the controller methods which are usually used while connected
     to a raspberry pi controller using the module `gpiozero`.
     '''
+    def __init__(self):
+        self.led12 = LED(12)
+        self.led24 = LED(24)
 
-    def toggleLight(self, pin=24):
-        led = LED(pin)
-        led.toggle()
-        print("Light toggled on pin", pin)
+    def toggleLight(self):
+        self.led12.toggle()
+        print("Light toggled on pin 12")
 
-    def lightBlinker(self, pin, times=10):
-        led = LED(pin)
-        led.blink(n=times)
-        print("Light blinks", times, "times on pin", pin)
+    def lightBlinker(self, times=10):
+        self.led24.blink(n=times)
+        print("Light blinks", times, "times on pin 24")
 
 
 class Config(Settings):
@@ -34,17 +35,16 @@ class Config(Settings):
 
     def on2Claps(self):
         '''Custom action for 2 claps'''
-        led = LED(4)
-        led.blink()
+        led12.blink(n=1)
         print("Light flashed on pin 4")
 
     def on3Claps(self):
         '''Custom action from PiController for 3 claps'''
-        self.controller.toggleLight(pin=6)
+        self.controller.toggleLight()
 
     def on5Claps(self):
         '''Custom action from PiController for 5 claps'''
-        self.controller.lightBlinker(pin=5, times=5)
+        self.controller.lightBlinker(times=5)
 
 
 def main():

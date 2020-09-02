@@ -37,7 +37,7 @@ test: setup
 	@pytest
 
 run: setup
-	@python3 ./example/app.py
+	@python3 ./example/advanced.app.py
 
 clean-build:
 	@rm -rf build/
