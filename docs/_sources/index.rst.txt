@@ -52,8 +52,10 @@ Dependencies
 
 * `Python 3.6+ <https://docs.python.org/3/>`_
 * `PyAudio <https://pypi.org/project/PyAudio>`_
+
   * `PortAudio <http://www.portaudio.com/>`_ (Need to be installed manually)
   * Audio Driver (Automatically loaded by OS after a restart)
+  
 * `Munch <https://pypi.org/project/munch/>`_
 
 Upcoming features

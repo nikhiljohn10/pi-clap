@@ -17,10 +17,14 @@ Dependencies
 
 * `Python 3.6+ <https://docs.python.org/3/>`_
 * `gpiozero <https://gpiozero.readthedocs.io>`_
+
 	* `RPi.GPIO <https://pypi.org/project/RPi.GPIO>`_
+
 * `PyAudio <https://pypi.org/project/PyAudio>`_
+
 	* `PortAudio <http://www.portaudio.com/>`_
 	* Audio Driver
+	
 * `Munch <https://pypi.org/project/munch/>`_
 
 Setting up Raspberry Pi
