@@ -36,7 +36,7 @@ class Config(Settings):
 
     def on2Claps(self):
         '''Custom action for 2 claps'''
-        self.led12.blink(n=1)
+        self.controller.led12.blink(n=1)
         print("Light flashed on pin 4")
 
     def on3Claps(self):
