@@ -8,6 +8,9 @@ DOCTHEME    := sphinx_rtd_theme
 RELEASE     := $(shell cat $(SRCDIR)/__init__.py | grep __version__ | sed -e 's/^.* = '\''//' -e 's/'\''//')
 VERSION     := $(shell echo $(RELEASE) | sed -e 's/^\([0-9]*\.[0-9]*\).*$$/\1/')
 
+PY_VER      := $(shell python3 -V | sed -e 's/^Python //')
+PYAUDIO     := 0.2.11
+
 help: version
 	@echo "Please use 'make <target>' where <target> is one of"
 	@echo "  version        to display package version"
@@ -32,6 +35,13 @@ version:
 	@echo "\t#################################\n"
 
 setup:
+ifeq (Darwin,$(findstring Darwin, $(shell uname)))
+	@if ! [[ $(PY_VER) =~ ^3\.[6-8]\.[0-9]+.*$$ ]]; then /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew install python3 ; fi;
+endif
+	@python3 -m pip install -U setuptools wheel
+ifeq (Darwin,$(findstring Darwin, $(shell uname)))
+	@python3 -m pip install pyaudio==$(PYAUDIO) || python3 -m pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio==$(PYAUDIO)
+endif
 	@python3 -m pip install -Ur requirements.txt
 
 remove:
@@ -40,7 +50,7 @@ remove:
 test: setup
 	@pytest
 
-run: setup
+run:
 	@python3 ./example/advanced.app.py
 
 clean-build: remove

@@ -81,4 +81,5 @@ class SignalProcessor():
         :return: When the maximum value of the integer array is greater than threshold, it returns `True` and `False` if otherwise
         :rtype: bool
         """
-        return (True if max(array('h', byte_stream)) > self.algorithm.value else False)
+        max_value = max(array('h', byte_stream))
+        return (True if max_value > self.algorithm.value else False)

@@ -49,13 +49,13 @@ cd pi-clap
 make help # Display the possible options available
 ```
 
-Version number is pulled from `piclap/__init__.py`
+Version number is fetched from [`piclap/__init__.py`](https://github.com/nikhiljohn10/pi-clap/blob/master/piclap/__init__.py)
 
-- Package - /piclap
-- Examples - /example
-- Documentation - /docs/source
-- Test Cases - /test
-- Github Actions - /.github/workflows
+- Package - [/piclap](https://github.com/nikhiljohn10/pi-clap/tree/master/piclap)
+- Examples - [/example](https://github.com/nikhiljohn10/pi-clap/tree/master/example)
+- Documentation - [/docs/source](https://github.com/nikhiljohn10/pi-clap/tree/master/docs/source)
+- Test Cases - [/test](https://github.com/nikhiljohn10/pi-clap/tree/master/tests)
+- Github Actions - [/.github/workflows](https://github.com/nikhiljohn10/pi-clap/tree/master/.github/workflows)
 
 ### License
 
