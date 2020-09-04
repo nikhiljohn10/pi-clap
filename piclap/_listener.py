@@ -44,9 +44,7 @@ class Listener():
         """Stores an :class:`Device` object which initialise :obj:`PyAudio` with calibration and manages the audio interface"""
         self.processor = SignalProcessor(method=self.config.method)
         """Initialised with an :class:`SignalProcessor` object using the signal processing method found inside :attr:`config`"""
-        print("Algorithm selected:", self.config.method.name)
-        # This is to be remove if other algorithms are defineds
-        print("Threshold Value:", self.config.method.value)
+        self.confirm()
 
     def clapWait(self, clap):
         """Start waiting for a small duration of time recursively until no more new claps are detected
@@ -71,6 +69,32 @@ class Listener():
             print("You clapped", self.claps, "times.\n")
             self.claps = 0
 
+    def __printInfo(self):
+        print("Default Device\t\t:", self.device.defaultDevice['name'])
+        print("Channels\t\t:", self.config.channels)
+        print("Chunk size\t\t:", self.config.chunk_size, "bytes")
+        print("Rate\t\t\t:", self.config.rate, "Hz")
+        print("Clap wait\t\t:", self.config.wait, "sec")
+        print("Algorithm selected\t:", self.config.method.name)
+        print("Threshold Value\t\t:", self.config.method.value, "\n")
+
+    def confirm(self):
+        while True:
+            self.__printInfo()
+            ask = input('Confirm(c) / Recalibrate(r) / Manual(m) / Quit(q)?[c/r/m/q](default is c): ')
+            if re.search(r'^[Cc]$|^$', ask):
+                break
+            elif re.search(r'^[Rr]$', ask):
+                printf("\n")
+                self.device.calibrateBufferSize()
+            elif re.search(r'^[Mm]$', ask):
+                t_value = input('Threshold value: ')
+                self.config.method.value = int(t_value)
+            elif re.search(r'^[Qq]$', ask):
+                sys.exit(0)
+            else:
+                print("Invalid input. Try again.\n")
+
     def start(self):
         """When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using :class:`SignalProcessor` until :attr:`Settings.exit` flag is ``True``
 
@@ -78,7 +102,7 @@ class Listener():
         """
         try:
             self.device.openStream()
-            print("Clap detection started")
+            print("\nClap detection started")
             while not self.config.exit:
                 try:
                     data = self.device.readData()
@@ -108,13 +132,8 @@ class Device:
         self.maxSamples = []
         os.system('clear')
         self.__setInputDevice()
-        self.__calibrateBufferSize(calibrate)
-        print("Default Device:", self.defaultDevice['name'])
-        print("Chunk size :", self.config.chunk_size, "bytes")
-        print("Rate :", self.config.rate, "Hz")
-        print("Channels :", self.config.channels)
-        print("Clap wait :", self.config.wait, "sec")
-        #sys.exit(0)
+        self.calibrateBufferSize(calibrate)
+        # sys.exit(0)
 
     def __del__(self):
         self.input.terminate()
@@ -144,12 +163,12 @@ class Device:
         self.stream.stop_stream()
         self.stream.close()
 
-    def __calibrateBufferSize(self, enabled):
+    def calibrateBufferSize(self, enabled=True):
         if enabled:
-            print(f'\rCalibrating...', end="\r")
-            newChunkSize = self.config.chunk_size
             calibrated = False
             totalSamples = 400
+            newChunkSize = self.config.chunk_size
+            self.__printProgress(0, totalSamples)
             while not calibrated:
                 try:
                     self.openStream()
@@ -158,22 +177,22 @@ class Device:
                         byte_stream = array('b', [0]) if data == None else data
                         maximum = max(array('h', byte_stream))
                         self.maxSamples.append(maximum)
-                        os.system('clear')
-                        self.__printProgress(count, totalSamples)
+                        self.__printProgress(count+1, totalSamples)
                     calibrated = True
                 except(OSError):
                     if re.search(r'.+Input overflowed$', str(e)):
                         newChunkSize = int(newChunkSize / 2)
-            self.closeStream()
-            os.system('clear')
             self.config.chunk_size = newChunkSize
+            self.closeStream()
             self.setThreshold()
-            print("Calibration complete\n")
 
     def setThreshold(self):
+        maximum = max(self.maxSamples)
         median = stat.median_high(self.maxSamples)
-        value = int(median * 3.141592653589793)
-        self.config.method.value = value
+        inter_value = median * 3.141592653589793
+        value = stat.mean([inter_value,maximum])
+        print(maximum,median,inter_value,value)
+        self.config.method.value = int(value)
 
     def __printProgress(self, iteration, total):
         terminalSize = re.match("^\D*columns=(\d+), .*$",
@@ -182,4 +201,8 @@ class Device:
         percent = ("{0:.1f}").format(100 * (iteration / float(total)))
         filledLength = int(length * iteration // total)
         bar = '█' * filledLength + '_' * (length - filledLength)
-        print(f'\rCalibrating: [{bar}] {percent}%', end="\r")
+        if iteration != total:
+            sys.stdout.write(f'Calibrating: [{bar}] {percent}%\r')
+        else:
+            sys.stdout.write(f'Calibrating: [{bar}] {percent}%\nCalibration complete\n\n')
+        sys.stdout.flush()
