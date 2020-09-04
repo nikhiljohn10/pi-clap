@@ -1,11 +1,12 @@
-Getting Started
-===============
 
-Dependencies
-------------
+Installation
+============
 
-Debian/Ubuntu/Rasbian OS
-^^^^^^^^^^^^^^^^^^^^^^^^
+Install Dependencies
+-----------------------
+
+Debian/Ubuntu/Rasberry Pi OS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: sh
 
@@ -45,10 +46,10 @@ MacOS
 .. code-block:: sh
 
     brew install python3 portaudio
-    python3 -m pip install pyaudio || python3 -m pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
+    python3 -m pip install --user pyaudio || python3 -m pip install --user --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
 
-Installation
-------------
+Install pi-clap
+---------------
 
 Using Git
 ^^^^^^^^^
@@ -57,20 +58,24 @@ Using Git
 
     git clone https://github.com/nikhiljohn10/pi-clap
     cd pi-clap
+    make local-install
     make run
+
+
+``make local-install`` is a helpful tool for alpha/beta testing before deploying to PyPi server
+
 
 Using Pip
 ^^^^^^^^^
 
 .. code-block:: sh
 
-    pip3 install pi-clap
+    python3 -m pip install --user pi-clap
 
 **Use the module as it is given in the example below.**
 
-
-Example code
-------------
+Using pi-clap
+-------------
 
 Writing an app using pi-clap is only 3 lines it need ideally.
 
