@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; pi-clap 1.3.2 documentation</title>
+  <title>Documentation &mdash; pi-clap 1.4.1 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Raspberry Pi Tutorial" href="rpi.html" />
-    <link rel="prev" title="Getting Started" href="getting-started.html" /> 
+    <link rel="next" title="Raspberry Pi Tutorial" href="tutorial.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -87,22 +87,21 @@
             
             
               <p class="caption"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
-</ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#listener-module">Listener Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#settings-module">Settings Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#signalprocessor-module">SignalProcessor Module</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rpi.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Links</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">MagPi Tutorial</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/pi-clap/">Python Package</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/nikhiljohn10/pi-clap">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -158,7 +157,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/piclap.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/documentation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,17 +176,20 @@
 <h2>Listener Module<a class="headerlink" href="#listener-module" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="piclap.Listener">
-<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Listener</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Listener</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">calibrate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener" title="Permalink to this definition">¶</a></dt>
 <dd><p>Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>config</strong> (class: <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> which is used for configuring the module, defaults to None</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (class: <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> which is used for configuring the module, defaults to None</p></li>
+<li><p><strong>calibrate</strong> (<em>bool</em>) – If the flag is set, the chunk size is calibrated, defaults to True</p></li>
+</ul>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><strong>config</strong></a> (class: <cite>Settings</cite>) – Store the <cite>Settings</cite> object</p></li>
-<li><p><a class="reference internal" href="#piclap.Listener.input" title="piclap.Listener.input"><strong>input</strong></a> (class: <cite>pyaudio.PyAudio</cite>) – Store the <cite>PyAudio</cite> object</p></li>
-<li><p><a class="reference internal" href="#piclap.Listener.stream" title="piclap.Listener.stream"><strong>stream</strong></a> (class: <cite>pyaudio.Stream</cite>) – Open a new input audio stream and store the stream object</p></li>
+<li><p><strong>input</strong> (class: <cite>pyaudio.PyAudio</cite>) – Store the <cite>PyAudio</cite> object</p></li>
+<li><p><strong>stream</strong> (class: <cite>pyaudio.Stream</cite>) – Open a new input audio stream and store the stream object</p></li>
 <li><p><a class="reference internal" href="#piclap.Listener.claps" title="piclap.Listener.claps"><strong>claps</strong></a> (<em>int</em>) – Store current value of claps counted and initially set to <cite>0</cite></p></li>
 <li><p><strong>lock</strong> (<em>thread.lock</em>) – Store the thread lock</p></li>
 <li><p><a class="reference internal" href="#piclap.Listener.processor" title="piclap.Listener.processor"><strong>processor</strong></a> (class: <cite>SignalProcessor</cite>) – Store the <cite>Processor</cite> object</p></li>
@@ -197,7 +199,7 @@
 <dl class="py method">
 <dt id="piclap.Listener.clapWait">
 <code class="sig-name descname">clapWait</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clap</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.clapWait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.clapWait" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start waiting for an interval of time recursively until no more new claps are detected</p>
+<dd><p>Start waiting for a small duration of time recursively until no more new claps are detected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>clap</strong> (<em>int</em>) – Number of claps found at the time of wait initialised</p>
@@ -218,10 +220,15 @@
 <dd><p>If the <a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><code class="xref py py-attr docutils literal notranslate"><span class="pre">config</span></code></a> parameter is <code class="docutils literal notranslate"><span class="pre">None</span></code>, an object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> is assigned</p>
 </dd></dl>
 
+<dl class="py method">
+<dt id="piclap.Listener.confirm">
+<code class="sig-name descname">confirm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Listener.confirm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Listener.confirm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
-<dt id="piclap.Listener.input">
-<code class="sig-name descname">input</code><a class="headerlink" href="#piclap.Listener.input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialised with an <code class="xref py py-class docutils literal notranslate"><span class="pre">pyaudio.PyAudio</span></code> object</p>
+<dt id="piclap.Listener.device">
+<code class="sig-name descname">device</code><a class="headerlink" href="#piclap.Listener.device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores an <code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code> object which initialise <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyAudio</span></code> with calibration and manages the audio interface</p>
 </dd></dl>
 
 <dl class="py method">
@@ -258,12 +265,6 @@
 <dd><p>When this method is called, the listener stop listening by closing the stream safely and terminating the connection</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt id="piclap.Listener.stream">
-<code class="sig-name descname">stream</code><a class="headerlink" href="#piclap.Listener.stream" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialised with an <code class="xref py py-class docutils literal notranslate"><span class="pre">pyaudio.Stream</span></code> object</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -280,7 +281,7 @@
 <li><p><a class="reference internal" href="#piclap.Settings.rate" title="piclap.Settings.rate"><strong>rate</strong></a> (<em>int</em>) – Bitrate at which input audio is streamed</p></li>
 <li><p><a class="reference internal" href="#piclap.Settings.channels" title="piclap.Settings.channels"><strong>channels</strong></a> (<em>int</em>) – Number of audio channels used by <a class="reference internal" href="#piclap.Listener" title="piclap.Listener"><code class="xref py py-class docutils literal notranslate"><span class="pre">Listener</span></code></a></p></li>
 <li><p><a class="reference internal" href="#piclap.Settings.chunk_size" title="piclap.Settings.chunk_size"><strong>chunk_size</strong></a> (<em>int</em>) – Frame count inside the audio buffer</p></li>
-<li><p><a class="reference internal" href="#piclap.Settings.interval" title="piclap.Settings.interval"><strong>interval</strong></a> (<em>float</em>) – Clap interval in seconds</p></li>
+<li><p><a class="reference internal" href="#piclap.Settings.wait" title="piclap.Settings.wait"><strong>wait</strong></a> (<em>float</em>) – Clap wait in seconds</p></li>
 <li><p><a class="reference internal" href="#piclap.Settings.method" title="piclap.Settings.method"><strong>method</strong></a> (class: <cite>Munch</cite>) – The algorithm used for the detection of claps</p></li>
 <li><p><a class="reference internal" href="#piclap.Settings.actions" title="piclap.Settings.actions"><strong>actions</strong></a> (<em>list</em><em>(</em><em>str</em><em>)</em>) – Collection of defined actions</p></li>
 </ul>
@@ -315,13 +316,6 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="piclap.Settings.interval">
-<code class="sig-name descname">interval</code><a class="headerlink" href="#piclap.Settings.interval" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">1.0</span></code></p>
-<p>Time duration to wait inside <a class="reference internal" href="#piclap.Listener.clapWait" title="piclap.Listener.clapWait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Listener.clapWait()</span></code></a></p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt id="piclap.Settings.method">
 <code class="sig-name descname">method</code><a class="headerlink" href="#piclap.Settings.method" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>default:</strong> <code class="code docutils literal notranslate"><span class="pre">{'name':</span> <span class="pre">'threshold','value':</span> <span class="pre">7000}</span></code></p>
@@ -331,13 +325,13 @@
 <dl class="py method">
 <dt id="piclap.Settings.on2Claps">
 <code class="sig-name descname">on2Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on2Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on2Claps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Action performed when 2 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">Controller.flashLight()</span></code> on pin 13</p>
+<dd><p>Action performed when 2 claps are detected.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="piclap.Settings.on3Claps">
 <code class="sig-name descname">on3Claps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_settings.html#Settings.on3Claps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Settings.on3Claps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Action performed when 3 claps are detected. As default, it call the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">Controller.toggleLight()</span></code> on pin 24</p>
+<dd><p>Action performed when 3 claps are detected.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -362,6 +356,13 @@
 <dd class="field-odd"><p><strong>method</strong> (<em>dict</em>) – A dict type parameter which defines a clap detection method</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="piclap.Settings.wait">
+<code class="sig-name descname">wait</code><a class="headerlink" href="#piclap.Settings.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>default:</strong> <code class="docutils literal notranslate"><span class="pre">0.5</span></code></p>
+<p>Time duration to wait for claps to complete in <a class="reference internal" href="#piclap.Listener.clapWait" title="piclap.Listener.clapWait"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Listener.clapWait()</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -477,10 +478,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rpi.html" class="btn btn-neutral float-right" title="Raspberry Pi Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Raspberry Pi Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="getting-started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

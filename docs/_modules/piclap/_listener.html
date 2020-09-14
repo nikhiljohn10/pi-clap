@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>piclap._listener &mdash; pi-clap 1.3.2 documentation</title>
+  <title>piclap._listener &mdash; pi-clap 1.4.1 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -86,16 +86,15 @@
             
               <p class="caption"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../piclap.html">Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rpi.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Links</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">MagPi Tutorial</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/pi-clap/">Python Package</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/nikhiljohn10/pi-clap">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
@@ -164,19 +163,25 @@
             
   <h1>Source code for piclap._listener</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/python3</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 <span class="kn">import</span> <span class="nn">_thread</span> <span class="k">as</span> <span class="nn">thread</span>
+<span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="kn">import</span> <span class="nn">pyaudio</span>
+<span class="kn">import</span> <span class="nn">statistics</span> <span class="k">as</span> <span class="nn">stat</span>
 
 <span class="kn">from</span> <span class="nn">._settings</span> <span class="kn">import</span> <span class="n">Settings</span>
 <span class="kn">from</span> <span class="nn">._processor</span> <span class="kn">import</span> <span class="n">SignalProcessor</span>
 
 
-<div class="viewcode-block" id="Listener"><a class="viewcode-back" href="../../piclap.html#piclap.Listener">[docs]</a><span class="k">class</span> <span class="nc">Listener</span><span class="p">():</span>
+<div class="viewcode-block" id="Listener"><a class="viewcode-back" href="../../documentation.html#piclap.Listener">[docs]</a><span class="k">class</span> <span class="nc">Listener</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</span>
 
 <span class="sd">    :param config: An object of :class:`Settings` which is used for configuring the module, defaults to None</span>
 <span class="sd">    :type config: class: :class:`Settings`</span>
+<span class="sd">    :param bool calibrate: If the flag is set, the chunk size is calibrated, defaults to True</span>
 <span class="sd">    :var config: Store the `Settings` object</span>
 <span class="sd">    :vartype config: class: `Settings`</span>
 <span class="sd">    :var input: Store the `PyAudio` object</span>
@@ -190,36 +195,31 @@
 <span class="sd">    :vartype processor: class: `SignalProcessor`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calibrate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor method&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">Settings</span><span class="p">()</span>
         <span class="sd">&quot;&quot;&quot;If the :attr:`config` parameter is ``None``, an object of :class:`Settings` is assigned&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
-        <span class="sd">&quot;&quot;&quot;Initialised with an :class:`pyaudio.PyAudio` object&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span><span class="p">,</span>
-                                      <span class="n">channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
-                                      <span class="n">rate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span>
-                                      <span class="nb">input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                      <span class="n">frames_per_buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
-        <span class="sd">&quot;&quot;&quot;Initialised with an :class:`pyaudio.Stream` object&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="sd">&quot;&quot;&quot;**default:** ``0``</span>
 
 <span class="sd">        This class property contains the current count of claps detected&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">calibrate</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Stores an :class:`Device` object which initialise :obj:`PyAudio` with calibration and manages the audio interface&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">SignalProcessor</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;Initialised with an :class:`SignalProcessor` object using the signal processing method found inside :attr:`config`&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirm</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Listener.clapWait"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.clapWait">[docs]</a>    <span class="k">def</span> <span class="nf">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clap</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Start waiting for an interval of time recursively until no more new claps are detected</span>
+<div class="viewcode-block" id="Listener.clapWait"><a class="viewcode-back" href="../../documentation.html#piclap.Listener.clapWait">[docs]</a>    <span class="k">def</span> <span class="nf">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clap</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start waiting for a small duration of time recursively until no more new claps are detected</span>
 
 <span class="sd">        :param int clap: Number of claps found at the time of wait initialised</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">wait</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">&gt;</span> <span class="n">clap</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clapWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Listener.listenClaps"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.listenClaps">[docs]</a>    <span class="k">def</span> <span class="nf">listenClaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threadName</span><span class="p">):</span>
+<div class="viewcode-block" id="Listener.listenClaps"><a class="viewcode-back" href="../../documentation.html#piclap.Listener.listenClaps">[docs]</a>    <span class="k">def</span> <span class="nf">listenClaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threadName</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method runs on a child thread with :attr:`lock` when :attr:`claps` equals ``1`` and reset the class property :attr:`claps` to ``0`` when execution is finished</span>
 
 <span class="sd">        :param str threadName: Name of the child thread started</span>
@@ -233,16 +233,43 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You clapped&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">claps</span><span class="p">,</span> <span class="s2">&quot;times.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">claps</span> <span class="o">=</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="Listener.start"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__printInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Default Device</span><span class="se">\t\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">defaultDevice</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channels</span><span class="se">\t\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Chunk size</span><span class="se">\t\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">,</span> <span class="s2">&quot;bytes&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rate</span><span class="se">\t\t\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clap wait</span><span class="se">\t\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">wait</span><span class="p">,</span> <span class="s2">&quot;sec&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Algorithm selected</span><span class="se">\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Threshold Value</span><span class="se">\t\t</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Listener.confirm"><a class="viewcode-back" href="../../documentation.html#piclap.Listener.confirm">[docs]</a>    <span class="k">def</span> <span class="nf">confirm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__printInfo</span><span class="p">()</span>
+            <span class="n">ask</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Confirm(c) / Recalibrate(r) / Manual(m) / Quit(q)?[c/r/m/q](default is c): &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[Cc]$|^$&#39;</span><span class="p">,</span> <span class="n">ask</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[Rr]$&#39;</span><span class="p">,</span> <span class="n">ask</span><span class="p">):</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">calibrateBufferSize</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[Mm]$&#39;</span><span class="p">,</span> <span class="n">ask</span><span class="p">):</span>
+                <span class="n">t_value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Threshold value: &#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t_value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[Qq]$&#39;</span><span class="p">,</span> <span class="n">ask</span><span class="p">):</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input. Try again.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Listener.start"><a class="viewcode-back" href="../../documentation.html#piclap.Listener.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;When this method is called, the listener start reading binary data from stream and sreach for claps inside the chunks of data using :class:`SignalProcessor` until :attr:`Settings.exit` flag is ``True``</span>
 
 <span class="sd">        :raises: ``KeyboardInterrupt``: If **Control + C** is pressed on keyboard</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clap detection started&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">openStream</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Clap detection started&quot;</span><span class="p">)</span>
             <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">exit</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">readData</span><span class="p">()</span>
                 <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">findClap</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -254,12 +281,94 @@
             <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Listener.stop"><a class="viewcode-back" href="../../piclap.html#piclap.Listener.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Listener.stop"><a class="viewcode-back" href="../../documentation.html#piclap.Listener.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;When this method is called, the listener stop listening by closing the stream safely and terminating the connection&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Exiting&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">closeStream</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">Device</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">calibrate</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxSamples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;clear&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__setInputDevice</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calibrateBufferSize</span><span class="p">(</span><span class="n">calibrate</span><span class="p">)</span>
+        <span class="c1"># sys.exit(0)</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__setInputDevice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">get_host_api_count</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No supported PortAudio Host APIs are found in your system&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">get_device_count</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No input audio device is found in your system&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultDevice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">get_default_input_device_info</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">defaultDevice</span><span class="p">[</span><span class="s1">&#39;maxInputChannels&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">defaultDevice</span><span class="p">[</span><span class="s1">&#39;defaultSampleRate&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">readData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">openStream</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span><span class="p">,</span>
+                                      <span class="n">channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
+                                      <span class="n">rate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span>
+                                      <span class="nb">input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">frames_per_buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">closeStream</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stop_stream</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span></div></div>
+
+    <span class="k">def</span> <span class="nf">calibrateBufferSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">enabled</span><span class="p">:</span>
+            <span class="n">calibrated</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">totalSamples</span> <span class="o">=</span> <span class="mi">400</span>
+            <span class="n">newChunkSize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__printProgress</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">totalSamples</span><span class="p">)</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="n">calibrated</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">openStream</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">totalSamples</span><span class="p">):</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">newChunkSize</span><span class="p">)</span>
+                        <span class="n">byte_stream</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">data</span>
+                        <span class="n">maximum</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">byte_stream</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">maxSamples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maximum</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__printProgress</span><span class="p">(</span><span class="n">count</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">totalSamples</span><span class="p">)</span>
+                    <span class="n">calibrated</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">except</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.+Input overflowed$&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)):</span>
+                        <span class="n">newChunkSize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">newChunkSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="n">newChunkSize</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">closeStream</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setThreshold</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setThreshold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">maximum</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxSamples</span><span class="p">)</span>
+        <span class="n">median</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">median_high</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxSamples</span><span class="p">)</span>
+        <span class="n">inter_value</span> <span class="o">=</span> <span class="n">median</span> <span class="o">*</span> <span class="mf">3.141592653589793</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">inter_value</span><span class="p">,</span><span class="n">maximum</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__printProgress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
+        <span class="n">terminalSize</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^[^0-9]*columns=([0-9]+), .*$&quot;</span><span class="p">,</span>
+                                <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">get_terminal_size</span><span class="p">()))</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">terminalSize</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mi">24</span><span class="p">)</span> <span class="k">if</span> <span class="n">terminalSize</span> <span class="k">else</span> <span class="mi">75</span>
+        <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.1f}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">iteration</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">total</span><span class="p">)))</span>
+        <span class="n">filledLength</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">*</span> <span class="n">iteration</span> <span class="o">//</span> <span class="n">total</span><span class="p">)</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;█&#39;</span> <span class="o">*</span> <span class="n">filledLength</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="n">filledLength</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">iteration</span> <span class="o">!=</span> <span class="n">total</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Calibrating: [</span><span class="si">{</span><span class="n">bar</span><span class="si">}</span><span class="s1">] </span><span class="si">{</span><span class="n">percent</span><span class="si">}</span><span class="s1">%</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Calibrating: [</span><span class="si">{</span><span class="n">bar</span><span class="si">}</span><span class="s1">] </span><span class="si">{</span><span class="n">percent</span><span class="si">}</span><span class="s1">%</span><span class="se">\n</span><span class="s1">Calibration complete</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 </pre></div>
 
            </div>

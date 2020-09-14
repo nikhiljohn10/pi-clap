@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; pi-clap 1.3.2 documentation</title>
+  <title>Installation &mdash; pi-clap 1.4.1 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Documentation" href="piclap.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
     <link rel="prev" title="Welcome to pi-clap" href="index.html" /> 
 </head>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3
+                1.4
               </div>
             
           
@@ -87,32 +87,31 @@
             
             
               <p class="caption"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
-</ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#debian-ubuntu-rasbian-os">Debian/Ubuntu/Rasbian OS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#debian-ubuntu-rasberry-pi-os">Debian/Ubuntu/Rasberry Pi OS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fedora">Fedora</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#centos">Centos</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#macos">MacOS</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-pi-clap">Install pi-clap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#using-git">Using Git</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-pip">Using Pip</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#example-code">Example code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-pi-clap">Using pi-clap</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="piclap.html">Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rpi.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Raspberry Pi Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Links</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://magpi.raspberrypi.org/articles/raspberry-pi-clapper">MagPi Tutorial</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/pi-clap/">Python Package</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/nikhiljohn10/pi-clap">Source Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -162,13 +161,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Getting Started</li>
+      <li>Installation</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/getting-started.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -181,12 +180,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="debian-ubuntu-rasbian-os">
-<h3>Debian/Ubuntu/Rasbian OS<a class="headerlink" href="#debian-ubuntu-rasbian-os" title="Permalink to this headline">¶</a></h3>
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-dependencies">
+<h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="debian-ubuntu-rasberry-pi-os">
+<h3>Debian/Ubuntu/Rasberry Pi OS<a class="headerlink" href="#debian-ubuntu-rasberry-pi-os" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get upgrade -y
 sudo apt-get install -y python3-pip portaudio19-dev
 </pre></div>
@@ -220,31 +219,33 @@ sudo yum install -y python37-pip portaudio portaudio-devel
 <div class="section" id="macos">
 <h3>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>brew install python3 portaudio
-python3 -m pip install pyaudio <span class="o">||</span> python3 -m pip install --global-option<span class="o">=</span><span class="s1">&#39;build_ext&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-I/usr/local/include&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-L/usr/local/lib&#39;</span> pyaudio
+python3 -m pip install --user pyaudio <span class="o">||</span> python3 -m pip install --user --global-option<span class="o">=</span><span class="s1">&#39;build_ext&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-I/usr/local/include&#39;</span> --global-option<span class="o">=</span><span class="s1">&#39;-L/usr/local/lib&#39;</span> pyaudio
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-pi-clap">
+<h2>Install pi-clap<a class="headerlink" href="#install-pi-clap" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="using-git">
 <h3>Using Git<a class="headerlink" href="#using-git" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nikhiljohn10/pi-clap
 <span class="nb">cd</span> pi-clap
+make local-install
 make run
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">local-install</span></code> is a helpful tool for alpha/beta testing before deploying to PyPi server</p>
 </div>
 <div class="section" id="using-pip">
 <h3>Using Pip<a class="headerlink" href="#using-pip" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip3 install pi-clap
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python3 -m pip install --user pi-clap
 </pre></div>
 </div>
 <p><strong>Use the module as it is given in the example below.</strong></p>
 </div>
 </div>
-<div class="section" id="example-code">
-<h2>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-pi-clap">
+<h2>Using pi-clap<a class="headerlink" href="#using-pi-clap" title="Permalink to this headline">¶</a></h2>
 <p>Writing an app using pi-clap is only 3 lines it need ideally.</p>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
@@ -292,40 +293,44 @@ make run
 30
 31
 32
-33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
 
-<span class="kn">from</span> <span class="nn">piclap</span> <span class="kn">import</span> <span class="o">*</span>
-
-
-<span class="hll"><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span>
+<span class="hll">
+</span><span class="hll"><span class="kn">from</span> <span class="nn">piclap</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class="hll">
+</span><span class="hll">
+</span><span class="hll"><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">Settings</span><span class="p">):</span>
 </span><span class="hll">    <span class="sd">&#39;&#39;&#39;Describes custom configurations and action methods to be executed based</span>
 </span><span class="hll"><span class="sd">    on the number of claps detected.</span>
 </span><span class="hll"><span class="sd">    &#39;&#39;&#39;</span>
 </span><span class="hll">
 </span><span class="hll">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="hll">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">512</span>       <span class="c1"># Reduce as power of 2 if pyaudio overflow</span>
-</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="mf">0.5</span>         <span class="c1"># Adjust interval between claps</span>
-</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">10000</span>   <span class="c1"># Threshold value adjustment</span>
+</span><span class="hll">        <span class="n">Settings</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">10000</span>
 </span><span class="hll">
 </span><span class="hll">    <span class="k">def</span> <span class="nf">on2Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span class="hll">        <span class="sd">&#39;&#39;&#39;Custom action for 2 claps&#39;&#39;&#39;</span>
 </span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light flashed on pin 4&quot;</span><span class="p">)</span>
 </span><span class="hll">
 </span><span class="hll">    <span class="k">def</span> <span class="nf">on3Claps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="hll">        <span class="sd">&#39;&#39;&#39;Custom action for 3 claps&#39;&#39;&#39;</span>
-</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin 6&quot;</span><span class="p">)</span>
-</span>
-
-<span class="hll"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span class="hll">    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-</span><span class="hll">    <span class="n">listener</span> <span class="o">=</span> <span class="n">Listener</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-</span>    <span class="n">listener</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-
-<span class="hll"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class="hll">    <span class="n">main</span><span class="p">()</span>
-</span></pre></div>
+</span>        <span class="sd">&#39;&#39;&#39;Custom action for 3 claps&#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Light toggled on pin 6&quot;</span><span class="p">)</span>
+<span class="hll">
+</span><span class="hll">
+</span><span class="hll"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span>    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">listener</span> <span class="o">=</span> <span class="n">Listener</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">calibrate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">listener</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="hll">
+</span><span class="hll">
+</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
 </td></tr></table></div>
 </div>
 </div>
@@ -338,7 +343,7 @@ make run
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="piclap.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pi-clap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

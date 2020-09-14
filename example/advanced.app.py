@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+import os
+import sys
+sys.path.append(os.path.abspath('.'))
+
 from piclap import *
 
 
@@ -9,10 +13,8 @@ class Config(Settings):
     '''
 
     def __init__(self):
-        super().__init__()
-        self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
-        self.interval = 0.5         # Adjust interval between claps
-        self.method.value = 10000   # Threshold value adjustment
+        Settings.__init__(self)
+        self.method.value = 10000
 
     def on2Claps(self):
         '''Custom action for 2 claps'''
@@ -25,7 +27,7 @@ class Config(Settings):
 
 def main():
     config = Config()
-    listener = Listener(config)
+    listener = Listener(config=config, calibrate=False)
     listener.start()
 
 

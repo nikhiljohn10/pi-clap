@@ -8,7 +8,7 @@ class Settings:
     :var int rate: Bitrate at which input audio is streamed
     :var int channels: Number of audio channels used by :class:`Listener`
     :var int chunk_size: Frame count inside the audio buffer
-    :var float interval: Clap interval in seconds
+    :var float wait: Clap wait in seconds
 
     :var method: The algorithm used for the detection of claps
     :vartype method: class: `Munch`
@@ -35,10 +35,10 @@ class Settings:
         """**default:** ``1024``
 
         Number of frames in the input audio buffer"""
-        self.interval = 1.0
-        """**default:** ``1.0``
+        self.wait = 0.5
+        """**default:** ``0.5``
 
-        Time duration to wait inside :meth:`Listener.clapWait()`"""
+        Time duration to wait for claps to complete in :meth:`Listener.clapWait()`"""
         self.method = Objectify.fromDict({
             'name': 'threshold',
             'value': 512
@@ -54,11 +54,11 @@ class Settings:
         """
 
     def on2Claps(self):
-        """Action performed when 2 claps are detected. As default, it call the method :meth:`Controller.flashLight` on pin 13"""
+        """Action performed when 2 claps are detected."""
         print("Flashed light")
 
     def on3Claps(self):
-        """Action performed when 3 claps are detected. As default, it call the method :meth:`Controller.toggleLight` on pin 24"""
+        """Action performed when 3 claps are detected."""
         print("Toggled light")
 
     def on4Claps(self):
