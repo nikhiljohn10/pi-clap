@@ -52,7 +52,7 @@ Dependencies
 
   * `PortAudio <http://www.portaudio.com/>`_ (Need to be installed manually)
   * Audio Driver (Automatically loaded by OS after a restart)
-  
+
 * `Munch <https://pypi.org/project/munch/>`_
 
 Upcoming features
@@ -60,7 +60,6 @@ Upcoming features
 
 * Adding advanced clap detection algorithms
 * Adding support for automation platforms like Amazon Alexa, Google Home, IFTTT etc.
-* Adding auto calibration for microphone
 
 License
 ^^^^^^^

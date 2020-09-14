@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; pi-clap 1.4.1 documentation</title>
+  <title>Documentation &mdash; pi-clap 1.4.2 documentation</title>
   
 
   
@@ -94,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#listener-module">Listener Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#settings-module">Settings Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#signalprocessor-module">SignalProcessor Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#device-module">Device Module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Raspberry Pi Tutorial</a></li>
@@ -228,7 +229,7 @@
 <dl class="py attribute">
 <dt id="piclap.Listener.device">
 <code class="sig-name descname">device</code><a class="headerlink" href="#piclap.Listener.device" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores an <code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code> object which initialise <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyAudio</span></code> with calibration and manages the audio interface</p>
+<dd><p>Stores an <a class="reference internal" href="#piclap.Device" title="piclap.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a> object which initialise <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyAudio</span></code> with calibration and manages the audio interface</p>
 </dd></dl>
 
 <dl class="py method">
@@ -463,6 +464,64 @@
 <dd class="field-odd"><p><strong>byte_stream</strong> (<em>bytearray</em>) – Binary stream of data received from microphone</p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="device-module">
+<h2>Device Module<a class="headerlink" href="#device-module" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="piclap.Device">
+<em class="property">class </em><code class="sig-prename descclassname">piclap.</code><code class="sig-name descname">Device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">calibrate</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (class: <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>) – An object of <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> which is used for configuring the module, defaults to None</p></li>
+<li><p><strong>calibrate</strong> (<em>bool</em>) – If the flag is set, the chunk size is calibrated, defaults to True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#piclap.Listener.config" title="piclap.Listener.config"><strong>config</strong></a> (class: <cite>Settings</cite>) – Store the <a class="reference internal" href="#piclap.Settings" title="piclap.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> object</p></li>
+<li><p><strong>input</strong> (class: <cite>PyAudio</cite>) – Store the <cite>PyAudio</cite> object</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="piclap.Device.calibrateBufferSize">
+<code class="sig-name descname">calibrateBufferSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Device.calibrateBufferSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Device.calibrateBufferSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calibrate the chunk size to a size which the user’s system can process without any errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>enabled</strong> (<em>bool</em>) – If <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>, calibration is done. Otherwise, it is not calibrated</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="piclap.Device.closeStream">
+<code class="sig-name descname">closeStream</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Device.closeStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Device.closeStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the audio stream</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="piclap.Device.openStream">
+<code class="sig-name descname">openStream</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Device.openStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Device.openStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open as binary stream to receive audio signals from microphone</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="piclap.Device.readData">
+<code class="sig-name descname">readData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Device.readData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Device.readData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a single chunk of binary data from stream</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="piclap.Device.setThreshold">
+<code class="sig-name descname">setThreshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/piclap/_listener.html#Device.setThreshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#piclap.Device.setThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the threashold value to the most closest value where a clap is detected. (Not accurate)</p>
 </dd></dl>
 
 </dd></dl>
