@@ -35,7 +35,7 @@ version:
 	@echo "\t#\t\t\t\t#"
 	@echo "\t#################################\n"
 
-setup:
+setup: remove
 ifeq (Darwin,$(findstring Darwin, $(shell uname)))
 	@if ! [[ $(PY_VER) =~ ^3\.[6-8]\.[0-9]+.*$$ ]]; then /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew install python3 ; fi;
 endif
@@ -48,13 +48,13 @@ endif
 remove:
 	@python3 -m pip uninstall -yr requirements.txt
 
-test: setup
+test:
 	@pytest
 
 run:
 	@python3 ./example/advanced.app.py
 
-clean-build: remove
+clean-build:
 	@rm -rf build/
 	@rm -rf dist/
 	@rm -rf *.egg-info
