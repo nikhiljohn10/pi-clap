@@ -1,3 +1,6 @@
+License
+=======
+
 **MIT License**
 
 .. raw:: html

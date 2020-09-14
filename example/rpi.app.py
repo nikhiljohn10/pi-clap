@@ -31,7 +31,7 @@ class Config(Settings):
         super().__init__()
         self.controller = PiController()
         self.chunk_size = 512       # Reduce as power of 2 if pyaudio overflow
-        self.interval = 0.5         # Adjust interval between claps
+        self.wait = 0.5             # Adjust wait between claps
         self.method.value = 600   # Threshold value adjustment
 
     def on2Claps(self):

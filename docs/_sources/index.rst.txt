@@ -11,21 +11,18 @@ Contents
 .. toctree::
   :maxdepth: 5
   :caption: Contents
-  :hidden:
 
-  Home <self>
-
-.. toctree::
-
-  getting-started
-  piclap
-  rpi
+  Introduction <self>
+  install
+  documentation
+  tutorial
+  license
 
 .. toctree::
   :caption: Links
   :hidden:
 
-  Tutorial <https://magpi.raspberrypi.org/articles/raspberry-pi-clapper>
+  MagPi Tutorial <https://magpi.raspberrypi.org/articles/raspberry-pi-clapper>
   Python Package <https://pypi.org/project/pi-clap/>
   Source Code <https://github.com/nikhiljohn10/pi-clap>
   genindex
@@ -68,7 +65,7 @@ Upcoming features
 License
 ^^^^^^^
 
-.. include:: license.rst
+MIT License
 
 .. meta::
    :description: pi-clap - A python package for clap detection

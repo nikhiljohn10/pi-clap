@@ -8,6 +8,9 @@ DOCTHEME    := sphinx_rtd_theme
 RELEASE     := $(shell cat $(SRCDIR)/__init__.py | grep __version__ | sed -e 's/^.* = '\''//' -e 's/'\''//')
 VERSION     := $(shell echo $(RELEASE) | sed -e 's/^\([0-9]*\.[0-9]*\).*$$/\1/')
 
+PY_VER      := $(shell python3 -V | sed -e 's/^Python //')
+PYAUDIO     := 0.2.11
+
 help: version
 	@echo "Please use 'make <target>' where <target> is one of"
 	@echo "  version        to display package version"
@@ -20,6 +23,7 @@ help: version
 	@echo "  test-publish   to upload python package to TestPyPi server"
 	@echo "  install        to install python package from PyPi server"
 	@echo "  test-install   to install python package from TestPyPi server"
+	@echo "  local-install  to install python package from local build"
 	@echo "  docs-clean     to clean the documentation directory"
 	@echo "  docs-build     to make documentation source directory"
 	@echo "  docs-html      to make standalone HTML documentation files for Github Pages"
@@ -31,19 +35,26 @@ version:
 	@echo "\t#\t\t\t\t#"
 	@echo "\t#################################\n"
 
-setup:
-	@python3 -m pip install -Ur requirements.txt
+setup: remove
+ifeq (Darwin,$(findstring Darwin, $(shell uname)))
+	@if ! [[ $(PY_VER) =~ ^3\.[6-8]\.[0-9]+.*$$ ]]; then /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew install python3 ; fi;
+endif
+	@python3 -m pip install --user -U setuptools wheel
+ifeq (Darwin,$(findstring Darwin, $(shell uname)))
+	@python3 -m pip install --user pyaudio==$(PYAUDIO) || python3 -m pip install --user --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio==$(PYAUDIO)
+endif
+	@python3 -m pip install --user -Ur requirements.txt
 
 remove:
 	@python3 -m pip uninstall -yr requirements.txt
 
-test: setup
+test:
 	@pytest
 
-run: setup
+run:
 	@python3 ./example/advanced.app.py
 
-clean-build: remove
+clean-build:
 	@rm -rf build/
 	@rm -rf dist/
 	@rm -rf *.egg-info
@@ -59,6 +70,7 @@ clean: clean-build
 
 build: clean test
 	@python3 setup.py sdist bdist_wheel
+	@twine check dist/*
 
 publish: build
 	@twine upload dist/*
@@ -69,10 +81,13 @@ test-publish: build
 	@make clean
 
 install: clean setup
-	@python3 -m pip install pi-clap==$(RELEASE)
+	@python3 -m pip install --user pi-clap==$(RELEASE)
 
 test-install: clean setup
-	@python3 -m pip install --index-url https://test.pypi.org/simple/ pi-clap==$(RELEASE)
+	@python3 -m pip install --user --index-url https://test.pypi.org/simple/ pi-clap==$(RELEASE)
+
+local-install: build
+	@python3 -m pip install --user dist/pi_clap-$(RELEASE)-py3-none-any.whl
 
 uninstall:
 	@python3 -m pip uninstall pi-clap
