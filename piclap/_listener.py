@@ -85,7 +85,7 @@ class Listener():
             if re.search(r'^[Cc]$|^$', ask):
                 break
             elif re.search(r'^[Rr]$', ask):
-                printf("\n")
+                print()
                 self.device.calibrateBufferSize()
             elif re.search(r'^[Mm]$', ask):
                 t_value = input('Threshold value: ')
@@ -179,7 +179,7 @@ class Device:
                         self.maxSamples.append(maximum)
                         self.__printProgress(count+1, totalSamples)
                     calibrated = True
-                except(OSError):
+                except OSError as e:
                     if re.search(r'.+Input overflowed$', str(e)):
                         newChunkSize = int(newChunkSize / 2)
             self.config.chunk_size = newChunkSize
