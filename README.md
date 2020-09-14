@@ -39,7 +39,6 @@ Visit Official documentation @ [pi-clap.nikz.in](https://pi-clap.nikz.in/getting
 
 * Adding advanced clap detection algorithms
 * Adding support for automation platforms like Amazon Alexa, Google Home, IFTTT etc.
-* Adding auto calibration for microphone
 
 ### Development
 

@@ -24,3 +24,11 @@ SignalProcessor Module
   :members:
   :undoc-members:
   :inherited-members:
+
+Device Module
+-------------
+
+.. autoclass:: piclap.Device
+  :members:
+  :undoc-members:
+  :inherited-members:

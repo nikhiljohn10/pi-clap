@@ -125,8 +125,20 @@ class Listener():
 
 
 class Device:
+    """Describes methods which are called by user for the initialisation of the PyAudio module to stream microphone input.
+
+    :param config: An object of :class:`Settings` which is used for configuring the module, defaults to None
+    :type config: class: :class:`Settings`
+    :param bool calibrate: If the flag is set, the chunk size is calibrated, defaults to True
+    :var config: Store the :class:`Settings` object
+    :vartype config: class: `Settings`
+    :var input: Store the `PyAudio` object
+    :vartype input: class: `PyAudio`
+    """
+
 
     def __init__(self, config, calibrate):
+        """Constructor method"""
         self.config = config
         self.input = pyaudio.PyAudio()
         self.maxSamples = []
@@ -136,9 +148,11 @@ class Device:
         # sys.exit(0)
 
     def __del__(self):
+        """Terminate input connection from microphone when class object is deconstructed"""
         self.input.terminate()
 
     def __setInputDevice(self):
+        """Test for host api and input device support. If the supported host api and input device are available, default input device information is set"""
         if self.input.get_host_api_count() < 1:
             print("No supported PortAudio Host APIs are found in your system")
             sys.exit(1)
@@ -150,9 +164,11 @@ class Device:
         self.config.rate = int(self.defaultDevice['defaultSampleRate'])
 
     def readData(self):
+        """Reads a single chunk of binary data from stream"""
         return self.stream.read(self.config.chunk_size)
 
     def openStream(self):
+        """Open as binary stream to receive audio signals from microphone"""
         self.stream = self.input.open(format=pyaudio.paInt16,
                                       channels=self.config.channels,
                                       rate=self.config.rate,
@@ -160,10 +176,15 @@ class Device:
                                       frames_per_buffer=self.config.chunk_size)
 
     def closeStream(self):
+        """Close the audio stream"""
         self.stream.stop_stream()
         self.stream.close()
 
     def calibrateBufferSize(self, enabled=True):
+        """Calibrate the chunk size to a size which the user's system can process without any errors
+
+        :param bool enabled: If :obj:`True`, calibration is done. Otherwise, it is not calibrated
+        """
         if enabled:
             calibrated = False
             totalSamples = 400
@@ -187,6 +208,7 @@ class Device:
             self.setThreshold()
 
     def setThreshold(self):
+        """Set the threashold value to the most closest value where a clap is detected. (Not accurate)"""
         maximum = max(self.maxSamples)
         median = stat.median_high(self.maxSamples)
         inter_value = median * 3.141592653589793
@@ -194,6 +216,7 @@ class Device:
         self.config.method.value = int(value)
 
     def __printProgress(self, iteration, total):
+        """Print progressbar"""
         terminalSize = re.match("^[^0-9]*columns=([0-9]+), .*$",
                                 str(os.get_terminal_size()))
         length = int(int(terminalSize.group(1)) - 24) if terminalSize else 75
