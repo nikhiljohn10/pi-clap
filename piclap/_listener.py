@@ -191,11 +191,10 @@ class Device:
         median = stat.median_high(self.maxSamples)
         inter_value = median * 3.141592653589793
         value = stat.mean([inter_value,maximum])
-        print(maximum,median,inter_value,value)
         self.config.method.value = int(value)
 
     def __printProgress(self, iteration, total):
-        terminalSize = re.match("^\D*columns=(\d+), .*$",
+        terminalSize = re.match("^[^0-9]*columns=([0-9]+), .*$",
                                 str(os.get_terminal_size()))
         length = int(int(terminalSize.group(1)) - 24) if terminalSize else 75
         percent = ("{0:.1f}").format(100 * (iteration / float(total)))

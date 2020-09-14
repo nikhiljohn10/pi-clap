@@ -27,7 +27,7 @@ class Config(Settings):
 
 def main():
     config = Config()
-    listener = Listener(config)
+    listener = Listener(config=config, calibrate=False)
     listener.start()
 
 

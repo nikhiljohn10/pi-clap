@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>piclap._listener &mdash; pi-clap 1.4.0 documentation</title>
+  <title>piclap._listener &mdash; pi-clap 1.4.1 documentation</title>
   
 
   
@@ -355,11 +355,10 @@
         <span class="n">median</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">median_high</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxSamples</span><span class="p">)</span>
         <span class="n">inter_value</span> <span class="o">=</span> <span class="n">median</span> <span class="o">*</span> <span class="mf">3.141592653589793</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">inter_value</span><span class="p">,</span><span class="n">maximum</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">maximum</span><span class="p">,</span><span class="n">median</span><span class="p">,</span><span class="n">inter_value</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__printProgress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
-        <span class="n">terminalSize</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^\D*columns=(\d+), .*$&quot;</span><span class="p">,</span>
+        <span class="n">terminalSize</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^[^0-9]*columns=([0-9]+), .*$&quot;</span><span class="p">,</span>
                                 <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">get_terminal_size</span><span class="p">()))</span>
         <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">terminalSize</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mi">24</span><span class="p">)</span> <span class="k">if</span> <span class="n">terminalSize</span> <span class="k">else</span> <span class="mi">75</span>
         <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.1f}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">iteration</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">total</span><span class="p">)))</span>
