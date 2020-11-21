@@ -10,7 +10,7 @@ pi-clap
 
 A python package for clap detection
 
-Visit Official documentation at [pi-clap.nikz.in](https://pi-clap.nikz.in/getting-started.html)
+Visit Official documentation at [pi-clap.nikz.in](https://pi-clap.nikz.in/)
 
 ### Platforms Supported
 
