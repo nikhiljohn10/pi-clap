@@ -165,7 +165,7 @@ class Device:
 
     def readData(self):
         """Reads a single chunk of binary data from stream"""
-        return self.stream.read(self.config.chunk_size)
+        return self.stream.read(self.config.chunk_size, exception_on_overflow = False)
 
     def openStream(self):
         """Open as binary stream to receive audio signals from microphone"""
@@ -194,8 +194,8 @@ class Device:
                 try:
                     self.openStream()
                     for count in range(totalSamples):
-                        data = self.stream.read(newChunkSize)
-                        byte_stream = array('b', [0]) if data == None else data
+                        data = self.stream.read(newChunkSize, exception_on_overflow = False)
+                        byte_stream = array('b', [0]) if data == None or data == b'' else data
                         maximum = max(array('h', byte_stream))
                         self.maxSamples.append(maximum)
                         self.__printProgress(count+1, totalSamples)
